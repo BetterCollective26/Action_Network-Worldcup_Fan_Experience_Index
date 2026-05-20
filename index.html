@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1580,6 +1581,63 @@
     .an-visual.is-exporting .an-data-table td{
       font-size:13px !important;
       padding:11px 10px !important;
+    }
+
+
+
+    /* IFRAME MOBILE + EDGE-TO-EDGE FIX
+       Keeps the core layout at exactly 720px for desktop and image exports,
+       removes the inner 14px gutters, and allows touch horizontal scrolling
+       when the iframe viewport is narrower than 720px. */
+    html{
+      overflow-x:auto !important;
+      overflow-y:auto;
+      -webkit-overflow-scrolling:touch;
+      overscroll-behavior-x:contain;
+    }
+
+    body{
+      overflow-x:auto !important;
+      overflow-y:visible;
+      -webkit-overflow-scrolling:touch;
+    }
+
+    .an-page{
+      width:720px !important;
+      min-width:720px !important;
+      max-width:720px !important;
+      padding:0 !important;
+    }
+
+    .an-section-copy,
+    .an-visual-shell,
+    .an-visual{
+      width:100%;
+      max-width:720px;
+    }
+
+    @media (min-width:721px){
+      body{
+        width:auto;
+        min-width:720px;
+      }
+
+      .an-page{
+        margin:0 auto !important;
+      }
+    }
+
+    @media (max-width:720px){
+      body{
+        width:720px;
+        min-width:720px;
+        max-width:720px;
+        touch-action:pan-x pan-y;
+      }
+
+      .an-page{
+        margin:0 !important;
+      }
     }
 
     /* Note: layout is designed for 720px wide — Action Network's content width.
