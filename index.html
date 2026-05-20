@@ -2070,6 +2070,92 @@
       }
     }
 
+
+    /* FINAL FULL-STRETCH IFRAME FIX
+       Keeps the live HTML flush to the full iframe viewport at every zoom level.
+       PNG exports are still forced back to the original 720px layout via
+       .an-visual.is-exporting and AN_EXPORT_LAYOUT_WIDTH = 720. */
+    html,
+    body{
+      width:100% !important;
+      min-width:0 !important;
+      max-width:none !important;
+      margin:0 !important;
+      padding:0 !important;
+      background:#ffffff !important;
+      overflow-x:hidden !important;
+      overflow-y:visible !important;
+    }
+
+    .an-page{
+      width:100% !important;
+      min-width:0 !important;
+      max-width:none !important;
+      margin:0 !important;
+      padding:0 !important;
+      background:#ffffff !important;
+    }
+
+    .an-section-copy,
+    .an-visual-shell,
+    .an-visual{
+      width:100% !important;
+      min-width:0 !important;
+      max-width:none !important;
+      margin-left:0 !important;
+      margin-right:0 !important;
+    }
+
+    @media (hover:hover) and (pointer:fine){
+      html,
+      body,
+      .an-page{
+        width:100% !important;
+        min-width:0 !important;
+        max-width:none !important;
+        margin:0 !important;
+        padding:0 !important;
+        overflow-x:hidden !important;
+        background:#ffffff !important;
+      }
+
+      .an-section-copy,
+      .an-visual-shell,
+      .an-visual{
+        width:100% !important;
+        min-width:0 !important;
+        max-width:none !important;
+        margin-left:0 !important;
+        margin-right:0 !important;
+      }
+    }
+
+    @media (max-width:720px){
+      html,
+      body,
+      .an-page{
+        width:100% !important;
+        min-width:0 !important;
+        max-width:none !important;
+        overflow-x:hidden !important;
+      }
+
+      .an-section-copy,
+      .an-visual-shell,
+      .an-visual{
+        width:100% !important;
+        min-width:0 !important;
+        max-width:none !important;
+      }
+    }
+
+    .an-visual.is-exporting{
+      width:720px !important;
+      min-width:720px !important;
+      max-width:720px !important;
+      margin:0 !important;
+    }
+
     /* Note: layout is designed for 720px wide — Action Network's content width.
        On narrow viewports the page scrolls horizontally using slim native
        AN-green scrollbars (both vertical and horizontal). */
