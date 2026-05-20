@@ -1,0 +1,2662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Action Network | 2026 World Cup Fan Experience Index</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Barlow+Condensed:wght@500;600;700;800;900&display=swap');
+
+    :root{
+      --an-navy:#101820;
+      --an-navy-2:#152630;
+      --an-green:#00b67a;
+      --an-green-bright:#00e09a;
+      --an-green-dark:#00865b;
+      --an-blue:#2f6f8f;
+      --an-blue-dark:#285d78;
+      --an-gold:#f2c94c;
+      --an-orange:#f59e0b;
+      --an-red:#ef4444;
+      --an-purple:#7c3aed;
+      --an-border:#dfe7e3;
+      --an-border-2:#cfd8d3;
+      --an-bg:#ffffff;
+      --an-bg2:#f7faf8;
+      --an-text:#20252a;
+      --an-muted:#6d7880;
+      --an-serif:'Source Serif 4', Georgia, serif;
+      --an-display:'Barlow Condensed', system-ui, sans-serif;
+    }
+
+    html,
+    body{
+      margin:0;
+      padding:0;
+      background:#eef4f1;
+      overflow-x:auto;
+      color:var(--an-text);
+      font-family:var(--an-serif);
+      /* Firefox — slim green scrollbars */
+      scrollbar-width:thin;
+      scrollbar-color:#00b67a transparent;
+    }
+
+    body{
+      overflow-x:visible;
+      min-width:720px;
+    }
+
+    /* Slim sleek green scrollbars — WebKit/Blink (Chrome, Edge, Safari).
+       5px on both axes: thin enough to be unobtrusive, visible enough to be useful. */
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar,
+    .an-chart-scroll::-webkit-scrollbar,
+    .an-table-scroll::-webkit-scrollbar{
+      width:5px;
+      height:5px;
+      background:transparent;
+    }
+
+    html::-webkit-scrollbar-track,
+    body::-webkit-scrollbar-track,
+    .an-chart-scroll::-webkit-scrollbar-track,
+    .an-table-scroll::-webkit-scrollbar-track{
+      background:transparent;
+    }
+
+    html::-webkit-scrollbar-thumb,
+    body::-webkit-scrollbar-thumb,
+    .an-chart-scroll::-webkit-scrollbar-thumb,
+    .an-table-scroll::-webkit-scrollbar-thumb{
+      background:#00b67a;
+      border-radius:99px;
+      min-height:40px;
+      min-width:40px;
+    }
+
+    html::-webkit-scrollbar-thumb:hover,
+    body::-webkit-scrollbar-thumb:hover,
+    .an-chart-scroll::-webkit-scrollbar-thumb:hover,
+    .an-table-scroll::-webkit-scrollbar-thumb:hover{
+      background:#00e09a;
+    }
+
+    /* Remove arrow buttons so it stays minimal */
+    html::-webkit-scrollbar-button,
+    body::-webkit-scrollbar-button,
+    .an-chart-scroll::-webkit-scrollbar-button,
+    .an-table-scroll::-webkit-scrollbar-button{
+      display:none;
+      height:0;
+      width:0;
+    }
+
+    /* Transparent corner where scrollbars meet */
+    html::-webkit-scrollbar-corner,
+    body::-webkit-scrollbar-corner,
+    .an-chart-scroll::-webkit-scrollbar-corner,
+    .an-table-scroll::-webkit-scrollbar-corner{
+      background:transparent;
+    }
+
+    *, *:before, *:after{ box-sizing:border-box; }
+
+    .an-page{
+      width:100%;
+      min-width:720px;
+      max-width:720px;
+      margin:0 auto;
+      padding:14px;
+    }
+
+    /* SCROLL HINT — sleek floating "Swipe to explore" badge that appears only
+       when the viewport is narrower than the desktop layout. Auto-dismisses
+       after first scroll/touch, and fades on its own after 6s. */
+    .an-section-copy{
+      margin:0 0 14px;
+      padding:18px 20px;
+      background:#fff;
+      border:1px solid var(--an-border);
+      border-left:5px solid var(--an-green);
+      box-shadow:0 8px 20px rgba(16,24,32,.06);
+    }
+
+    .an-section-copy h3,
+    .an-section-copy h2{
+      margin:0 0 10px;
+      font-family:var(--an-display);
+      font-weight:900;
+      line-height:1.03;
+      text-transform:uppercase;
+      color:#101820;
+      letter-spacing:.02em;
+    }
+
+    .an-section-copy h3{ font-size:clamp(24px, 4vw, 34px); }
+    .an-section-copy h2{ font-size:clamp(22px, 4vw, 32px); }
+
+    .an-section-copy p{
+      margin:0 0 10px;
+      color:#374151;
+      font-size:14.5px;
+      line-height:1.55;
+    }
+
+    .an-section-copy p:last-child{ margin-bottom:0; }
+
+    /* KEY FINDINGS CARD COMPONENT
+       AN-branded translation of a card-based findings layout:
+       featured dark card, rank badges, stat pills, hover lift + glow,
+       decorative radial circle — all using the AN green/navy palette. */
+    .an-kf-section{
+      border-left-width:5px;
+      padding:18px 20px 20px;
+      overflow:visible;
+    }
+
+    .an-kf-label{
+      display:inline-flex;
+      align-items:center;
+      margin:0 0 14px;
+      padding:7px 11px;
+      background:var(--an-green);
+      color:#071628;
+      font-family:var(--an-display), Impact, sans-serif;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+      line-height:1;
+    }
+
+    .an-kf-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+
+    .an-kf-card{
+      position:relative;
+      display:grid;
+      grid-template-columns:46px 1fr auto;
+      gap:14px;
+      align-items:center;
+      min-height:106px;
+      padding:16px 16px 16px 14px;
+      background:#fff;
+      border:1px solid var(--an-border);
+      border-left:5px solid var(--an-green);
+      box-shadow:0 8px 20px rgba(16,24,32,.06);
+      overflow:hidden;
+      transition:transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+      z-index:1;
+    }
+
+    .an-kf-card:hover{
+      transform:translateY(-5px) scale(1.012);
+      box-shadow:0 20px 42px rgba(0,0,0,.13);
+      border-color:rgba(0,182,122,.5);
+      z-index:3;
+    }
+
+    /* Decorative radial circle — top-right accent */
+    .an-kf-card::after{
+      content:'';
+      position:absolute;
+      top:-44px;
+      right:-44px;
+      width:108px;
+      height:108px;
+      border-radius:50%;
+      background:rgba(0,182,122,.07);
+      pointer-events:none;
+    }
+
+    /* Featured (first) card — dark navy gradient */
+    .an-kf-card.is-featured{
+      background:
+        radial-gradient(circle at 94% 10%, rgba(0,224,154,.2), transparent 34%),
+        linear-gradient(135deg, #071628 0%, #0a2e28 100%);
+      border-color:#0a2218;
+      border-left-color:var(--an-green-bright);
+      color:#fff;
+    }
+
+    .an-kf-card.is-featured::after{
+      background:rgba(0,224,154,.1);
+      top:-50px;
+      right:-50px;
+      width:130px;
+      height:130px;
+    }
+
+    .an-kf-card.is-featured:hover{
+      box-shadow:0 22px 48px rgba(0,0,0,.28);
+      border-color:rgba(0,224,154,.45);
+    }
+
+    /* Rank badge */
+    .an-kf-rank{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:42px;
+      height:42px;
+      background:rgba(0,182,122,.12);
+      border:1px solid rgba(0,182,122,.28);
+      color:#00865b;
+      font-family:var(--an-display), Impact, sans-serif;
+      font-size:18px;
+      font-weight:900;
+      line-height:1;
+      flex-shrink:0;
+      position:relative;
+      z-index:2;
+    }
+
+    .an-kf-card.is-featured .an-kf-rank{
+      background:var(--an-green);
+      border-color:rgba(255,255,255,.2);
+      color:#071628;
+    }
+
+    /* Body copy */
+    .an-kf-body{
+      position:relative;
+      z-index:2;
+    }
+
+    .an-kf-body h4{
+      margin:0 0 5px;
+      font-family:var(--an-display), Impact, sans-serif;
+      font-size:clamp(14px, 2.2vw, 16px);
+      line-height:1.1;
+      font-weight:900;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      color:#101820;
+    }
+
+    .an-kf-card.is-featured .an-kf-body h4{
+      color:#fff;
+      font-size:clamp(15px, 2.4vw, 17px);
+    }
+
+    .an-kf-body p{
+      margin:0;
+      font-size:13.5px;
+      line-height:1.5;
+      color:#5f6973;
+    }
+
+    .an-kf-body strong{ color:#101820; }
+
+    .an-kf-card.is-featured .an-kf-body p{
+      color:rgba(200,220,215,.9);
+    }
+
+    .an-kf-card.is-featured .an-kf-body strong{
+      color:#8fffda;
+    }
+
+    /* Stat pill */
+    .an-kf-stat{
+      position:relative;
+      z-index:2;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:76px;
+      max-width:120px;
+      padding:6px 9px;
+      background:rgba(0,182,122,.1);
+      border:1px solid rgba(0,182,122,.28);
+      color:#00865b;
+      font-family:var(--an-display), Impact, sans-serif;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      text-align:center;
+      white-space:normal;
+      line-height:1.3;
+    }
+
+    .an-kf-card.is-featured .an-kf-stat{
+      background:rgba(255,255,255,.1);
+      border-color:rgba(255,255,255,.2);
+      color:#7effd3;
+    }
+
+    .an-findings{
+      display:none; /* legacy; replaced by .an-kf-grid */
+    }
+
+    .an-visual-shell{ margin:0 0 26px; }
+
+    .an-download-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin:0 0 10px;
+    }
+
+    .an-tools-left{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .an-btn{
+      appearance:none;
+      border:1px solid rgba(0,0,0,.08);
+      background:var(--an-green);
+      color:var(--an-navy);
+      cursor:pointer;
+      padding:10px 14px;
+      font-family:var(--an-display);
+      font-size:13px;
+      line-height:1;
+      font-weight:900;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .an-btn:hover{ background:#0ddf98; }
+
+    .an-btn.secondary{
+      background:#fff;
+      color:#101820;
+      border-color:var(--an-border-2);
+    }
+
+    .an-btn.secondary:hover{ background:#f7faf8; }
+
+    .an-download-note{
+      color:var(--an-muted);
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .an-visual{
+      background:#fff;
+      border:1px solid rgba(0,182,122,.16);
+      overflow:hidden;
+      box-shadow:0 12px 30px rgba(16,24,32,.08);
+      -webkit-font-smoothing:antialiased;
+      text-rendering:geometricPrecision;
+    }
+
+    .an-visual.is-exporting{
+      box-shadow:none;
+      border-color:#dfe7e3;
+      overflow:visible;
+      transform:none !important;
+    }
+
+    .an-top{
+      position:relative;
+      padding:22px 180px 20px 22px;
+      min-height:108px;
+      background:
+        radial-gradient(circle at 94% 16%, rgba(0,224,154,.14), transparent 34%),
+        linear-gradient(90deg, #071628 0%, #0a1830 36%, #0b3c36 100%);
+      border-bottom:5px solid var(--an-green);
+      color:#fff;
+      overflow:hidden;
+    }
+
+    .an-logo-lockup{
+      position:absolute;
+      top:18px;
+      right:22px;
+      display:block;
+      width:160px;
+      height:24px;
+      line-height:0;
+      margin:0;
+      padding:0;
+      transform:none !important;
+      overflow:visible;
+    }
+
+    .an-logo-svg{
+      display:block;
+      width:160px;
+      height:24px;
+      overflow:visible;
+      transform:none !important;
+    }
+
+    .an-logo-svg .an-logo-word{
+      font-family:var(--an-display), Impact, 'Arial Narrow', sans-serif;
+      font-size:17px;
+      font-weight:900;
+      letter-spacing:1.3px;
+      fill:#ffffff;
+      text-rendering:geometricPrecision;
+    }
+
+    .an-logo-svg .an-logo-circle{
+      fill:var(--an-green-bright);
+    }
+
+    .an-logo-svg .an-logo-check{
+      fill:none;
+      stroke:#06352d;
+      stroke-width:2.6;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .an-visual.is-exporting .an-top{
+      padding:24px 200px 22px 24px;
+      min-height:112px;
+    }
+
+    .an-visual.is-exporting .an-logo-lockup{
+      top:20px;
+      right:24px;
+      width:172px;
+      height:26px;
+      transform:none !important;
+    }
+
+    .an-visual.is-exporting .an-logo-svg{
+      width:172px;
+      height:26px;
+    }
+
+    .an-visual.is-exporting .an-logo-svg .an-logo-word{
+      fill:#ffffff !important;
+    }
+
+    .an-visual.is-exporting .an-logo-svg .an-logo-circle{
+      fill:#00e6a0 !important;
+    }
+
+    .an-kicker{
+      display:inline-flex;
+      align-items:center;
+      margin:0 0 12px;
+      padding:7px 12px;
+      background:var(--an-green);
+      color:var(--an-navy);
+      font-family:var(--an-display);
+      font-size:12px;
+      line-height:1;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .an-top h2{
+      margin:0;
+      max-width:500px;
+      font-family:var(--an-display);
+      font-size:clamp(22px, 4.2vw, 32px);
+      line-height:1.05;
+      font-weight:900;
+      letter-spacing:.01em;
+      text-transform:uppercase;
+    }
+
+    .an-top p{
+      margin:8px 0 0;
+      max-width:500px;
+      font-size:13.5px;
+      line-height:1.5;
+      color:#d8e6e2;
+    }
+
+    .an-visual-body{
+      padding:18px;
+      background:#fff;
+    }
+
+    .an-visual.is-exporting .an-visual-body{
+      padding:22px;
+    }
+
+    .an-source{
+      margin:0;
+      padding:14px 20px;
+      background:var(--an-bg2);
+      border-top:4px solid var(--an-green);
+      color:#777;
+      font-size:12.5px;
+      line-height:1.5;
+    }
+
+    .an-source strong{ color:#333; }
+
+    .an-snapshot-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:10px;
+    }
+
+    .an-snapshot-card{
+      position:relative;
+      min-height:168px;
+      padding:14px 15px;
+      background:#f7faf8;
+      border:1px solid var(--an-border);
+      border-top:4px solid var(--an-green);
+      display:flex;
+      flex-direction:column;
+      gap:0;
+      overflow:hidden;
+      /* per-card accent token defaults (green) */
+      --card-accent: #00865b;
+      --card-badge-bg: rgba(0,182,122,.12);
+      --card-badge-border: rgba(0,182,122,.30);
+      --card-badge-color: #00865b;
+    }
+
+    .an-snapshot-card.blue{
+      border-top-color:var(--an-blue);
+      --card-accent: #285d78;
+      --card-badge-bg: rgba(47,111,143,.10);
+      --card-badge-border: rgba(47,111,143,.30);
+      --card-badge-color: #285d78;
+    }
+    .an-snapshot-card.gold{
+      border-top-color:var(--an-gold);
+      --card-accent: #8a6100;
+      --card-badge-bg: rgba(218,165,0,.14);
+      --card-badge-border: rgba(218,165,0,.38);
+      --card-badge-color: #8a6100;
+    }
+    .an-snapshot-card.red{
+      border-top-color:var(--an-red);
+      --card-accent: #b91c1c;
+      --card-badge-bg: rgba(239,68,68,.10);
+      --card-badge-border: rgba(239,68,68,.28);
+      --card-badge-color: #b91c1c;
+    }
+
+    /* CITY IMAGE CARDS — dark colorised overlay over the city photo.
+       Text flips to light; city name gets the bright accent; score badge goes
+       semi-transparent. The gradient + city image are set via inline style so
+       each card can use its own tinted overlay colour. */
+    .an-snapshot-card.has-img{
+      background-color:#0a1e18; /* fallback if image fails */
+      background-size:cover;
+      background-position:center;
+      border-top-width:5px;
+    }
+
+    .an-snapshot-card.has-img .an-card-label{
+      background:#101820;
+      border-color:#101820;
+      color:var(--an-green-bright);
+    }
+
+    .an-snapshot-card.has-img .an-card-score{
+      background:rgba(0,0,0,.5);
+      border-color:rgba(255,255,255,.22);
+      color:rgba(255,255,255,.95);
+    }
+
+    .an-snapshot-card.has-img .an-card-city{
+      color:var(--card-city-bright, #00e09a);
+      text-shadow:0 1px 8px rgba(0,0,0,.5);
+    }
+
+    .an-snapshot-card.has-img .an-card-city-wrap::after{
+      background:var(--card-city-bright, #00e09a);
+      opacity:1;
+      box-shadow:0 0 8px rgba(0,0,0,.3);
+    }
+
+    .an-snapshot-card.has-img .an-card-note{
+      color:rgba(255,255,255,.72);
+    }
+
+    .an-snapshot-card.has-img .an-card-note strong{
+      color:#fff;
+    }
+
+    /* Top row: label on left, score badge on right */
+    .an-card-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:12px;
+    }
+
+    .an-card-label{
+      display:inline-flex;
+      align-items:center;
+      width:auto;
+      margin:0;
+      padding:7px 12px;
+      background:#101820;
+      border:1px solid #101820;
+      color:var(--an-green-bright);
+      font-family:var(--an-display);
+      font-size:11px;
+      line-height:1;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-weight:900;
+      flex:0 1 auto;
+      max-width:100%;
+      box-shadow:0 6px 14px rgba(0,0,0,.14);
+    }
+
+    /* Sleek score badge — top-right */
+    .an-card-score{
+      flex-shrink:0;
+      padding:4px 9px;
+      background:var(--card-badge-bg);
+      border:1px solid var(--card-badge-border);
+      color:var(--card-badge-color);
+      font-family:var(--an-display);
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.05em;
+      white-space:nowrap;
+      line-height:1.2;
+    }
+
+    /* City name — the hero element */
+    .an-card-city{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-family:var(--an-display);
+      font-size:clamp(20px, 3.6vw, 28px);
+      font-weight:900;
+      letter-spacing:-.01em;
+      text-transform:uppercase;
+      color:var(--card-accent);
+      line-height:1.05;
+      flex:1;
+    }
+
+    /* Accent highlight bar below city name */
+    .an-card-city-wrap{
+      margin-bottom:10px;
+    }
+
+    .an-card-city-wrap::after{
+      content:'';
+      display:block;
+      width:28px;
+      height:3px;
+      background:var(--card-accent);
+      margin-top:6px;
+      opacity:.7;
+    }
+
+    .an-card-note{
+      margin:auto 0 0;
+      color:#606a70;
+      font-size:12.5px;
+      line-height:1.42;
+    }
+
+    .an-card-note strong{
+      color:#101820;
+      font-weight:700;
+    }
+
+    .an-card-value{ display:none; } /* legacy — value moved to badge */
+
+    .an-chart-card{
+      border:1px solid var(--an-border);
+      background:#fff;
+      overflow:hidden;
+    }
+
+    .an-chart-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      padding:16px 18px;
+      background:#f7faf8;
+      border-bottom:1px solid var(--an-border);
+      border-left:6px solid var(--an-green);
+    }
+
+    .an-chart-head h3{
+      margin:0 0 6px;
+      font-family:var(--an-display);
+      color:#20252a;
+      font-size:22px;
+      line-height:1.05;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      font-weight:900;
+    }
+
+    .an-chart-head p{
+      margin:0;
+      color:#6d7880;
+      font-size:13.5px;
+      line-height:1.45;
+    }
+
+    .an-chart-tag{
+      flex:0 0 auto;
+      padding:7px 10px;
+      background:#fff;
+      border:1px solid var(--an-border);
+      color:var(--an-green-dark);
+      font-family:var(--an-display);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+
+    .an-chart-scroll,
+    .an-table-scroll{
+      width:100%;
+      overflow-x:auto;
+      background:#fff;
+      scrollbar-width:thin;
+      scrollbar-color:var(--an-green) #dfe8e3;
+    }
+
+    .an-visual.is-exporting .an-chart-scroll,
+    .an-visual.is-exporting .an-table-scroll{
+      overflow:visible !important;
+      width:100% !important;
+    }
+
+    .an-chart-scroll::-webkit-scrollbar,
+    .an-table-scroll::-webkit-scrollbar{ height:10px; }
+
+    .an-chart-scroll::-webkit-scrollbar-track,
+    .an-table-scroll::-webkit-scrollbar-track{ background:#dfe8e3; }
+
+    .an-chart-scroll::-webkit-scrollbar-thumb,
+    .an-table-scroll::-webkit-scrollbar-thumb{
+      background:var(--an-green);
+      border-radius:999px;
+      border:2px solid #dfe8e3;
+    }
+
+    .an-bar-chart{
+      min-width:0;
+      padding:14px 14px 12px;
+      display:grid;
+      gap:8px;
+    }
+
+    .an-visual.is-exporting .an-bar-chart{
+      min-width:0;
+      padding:26px 28px;
+      gap:12px;
+    }
+
+    .an-bar-row{
+      display:grid;
+      grid-template-columns:38px 174px minmax(190px, 1fr) 72px;
+      gap:8px;
+      align-items:center;
+    }
+
+    .an-visual.is-exporting .an-bar-row{
+      grid-template-columns:58px 248px minmax(480px, 1fr) 106px;
+      gap:16px;
+    }
+
+    .an-rank-pill{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:34px;
+      height:30px;
+      background:#0d1714;
+      color:var(--an-green-bright);
+      font-family:var(--an-display);
+      font-size:15px;
+      line-height:1;
+      font-weight:900;
+    }
+
+    .an-city-label strong{
+      display:flex;
+      align-items:center;
+      font-family:var(--an-display);
+      font-size:15px;
+      line-height:1.05;
+      letter-spacing:.025em;
+      text-transform:uppercase;
+      color:#101820;
+      font-weight:900;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .an-city-label span{
+      display:block;
+      margin-top:3px;
+      color:#6b7280;
+      font-size:11px;
+      line-height:1.2;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .an-track{
+      height:26px;
+      background:#e7ece9;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .an-visual.is-exporting .an-track{
+      height:34px;
+    }
+
+    .an-fill{
+      width:0%;
+      height:100%;
+      background:linear-gradient(90deg, var(--an-green), var(--an-green-dark));
+      transition:width 900ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .an-fill.blue{ background:linear-gradient(90deg, var(--an-blue), var(--an-blue-dark)); }
+    .an-fill.gold{ background:linear-gradient(90deg, var(--an-gold), var(--an-orange)); }
+    .an-fill.red{ background:linear-gradient(90deg, #fb7185, var(--an-red)); }
+    .an-fill.purple{ background:linear-gradient(90deg, #a78bfa, var(--an-purple)); }
+
+    .an-score{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      min-width:0;
+      padding-right:2px;
+      text-align:right;
+      font-family:var(--an-display);
+      font-size:22px;
+      line-height:1;
+      font-weight:900;
+      color:#101820;
+      white-space:nowrap;
+      visibility:visible !important;
+      opacity:1 !important;
+      z-index:2;
+    }
+
+    .an-visual.is-exporting .an-score{
+      min-width:0;
+      font-size:30px;
+      padding-right:4px;
+    }
+
+    .an-metric-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:10px;
+    }
+
+    .an-metric-card{
+      min-height:220px;
+      padding:16px;
+      background:#f7faf8;
+      border:1px solid var(--an-border);
+      border-top:4px solid var(--an-green);
+    }
+
+    .an-metric-card.blue{ border-top-color:var(--an-blue); }
+    .an-metric-card.gold{ border-top-color:var(--an-gold); }
+    .an-metric-card.red{ border-top-color:var(--an-red); }
+    .an-metric-card.purple{ border-top-color:var(--an-purple); }
+
+    /* SLEEK AN-BRANDED ICON BADGES
+       Each metric/method card gets a small icon badge that picks up the card's
+       accent color. The SVG is injected by JS (same crisp-vector pattern as the
+       flags) so the artwork stays razor-sharp at any zoom and in the 4K export. */
+    .an-metric-icon,
+    .an-method-icon{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:44px;
+      height:44px;
+      margin:0 0 12px;
+      background:var(--icon-bg, rgba(0,182,122,.12));
+      color:var(--icon-color, #00865b);
+      border:1px solid var(--icon-border, rgba(0,182,122,.30));
+      position:relative;
+      flex-shrink:0;
+    }
+
+    /* Sleek left accent stripe — uses the same hue as the icon stroke,
+       at full saturation, for an AN-style visual signature on every badge. */
+    .an-metric-icon:after,
+    .an-method-icon:after{
+      content:'';
+      position:absolute;
+      top:0;
+      bottom:0;
+      left:0;
+      width:3px;
+      background:var(--icon-color, #00865b);
+    }
+
+    .an-metric-icon > svg,
+    .an-method-icon > svg{
+      width:24px;
+      height:24px;
+      display:block;
+      stroke:currentColor;
+    }
+
+    /* Card-color-specific theming */
+    .an-metric-card.blue .an-metric-icon{
+      --icon-bg:rgba(47,111,143,.10);
+      --icon-color:#285d78;
+      --icon-border:rgba(47,111,143,.30);
+    }
+    .an-metric-card.gold .an-metric-icon{
+      --icon-bg:rgba(242,201,76,.18);
+      --icon-color:#a17104;
+      --icon-border:rgba(242,201,76,.50);
+    }
+    .an-metric-card.red .an-metric-icon{
+      --icon-bg:rgba(239,68,68,.10);
+      --icon-color:#b91c1c;
+      --icon-border:rgba(239,68,68,.30);
+    }
+    .an-metric-card.purple .an-metric-icon{
+      --icon-bg:rgba(124,58,237,.10);
+      --icon-color:#6d28d9;
+      --icon-border:rgba(124,58,237,.30);
+    }
+
+    /* Method cards: slightly more compact since the cards themselves are smaller */
+    .an-method-icon{
+      width:40px;
+      height:40px;
+      margin-bottom:10px;
+    }
+    .an-method-icon > svg{
+      width:22px;
+      height:22px;
+    }
+
+    .an-metric-card h3{
+      margin:0 0 12px;
+      font-family:var(--an-display);
+      font-size:20px;
+      line-height:1.05;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      color:#101820;
+    }
+
+    .an-metric-main{
+      margin:0;
+      font-family:var(--an-display);
+      font-size:46px;
+      line-height:.9;
+      font-weight:900;
+      color:#101820;
+    }
+
+    .an-metric-card p{
+      margin:10px 0 0;
+      color:#606a70;
+      font-size:13px;
+      line-height:1.46;
+    }
+
+    .an-progress-list{
+      display:grid;
+      gap:12px;
+      margin:16px 0 0;
+    }
+
+    .an-progress-row{
+      padding:10px 12px 12px;
+      background:#fff;
+      border:1px solid var(--an-border);
+      box-shadow:0 4px 12px rgba(16,24,32,.035);
+    }
+
+    .an-progress-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:8px;
+    }
+
+    .an-progress-city{
+      display:inline-flex;
+      align-items:center;
+      min-width:0;
+      color:#1f2937;
+      font-size:13px;
+      line-height:1.2;
+      font-weight:700;
+    }
+
+    .an-progress-value{
+      font-family:var(--an-display);
+      font-size:15px;
+      line-height:1;
+      font-weight:900;
+      color:#101820;
+      white-space:nowrap;
+    }
+
+    .an-progress-track{
+      width:100%;
+      height:12px;
+      background:#e7ece9;
+      border-radius:999px;
+      overflow:hidden;
+    }
+
+    .an-progress-fill{
+      height:100%;
+      width:0%;
+      border-radius:999px;
+      background:linear-gradient(90deg, var(--an-green), var(--an-green-dark));
+      box-shadow:0 0 0 1px rgba(255,255,255,.24) inset;
+      transition:width 900ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .an-metric-card.blue .an-progress-fill{
+      background:linear-gradient(90deg, var(--an-blue), var(--an-blue-dark));
+    }
+
+    .an-metric-card.gold .an-progress-fill{
+      background:linear-gradient(90deg, var(--an-gold), var(--an-orange));
+    }
+
+    .an-metric-card.red .an-progress-fill{
+      background:linear-gradient(90deg, #fb7185, var(--an-red));
+    }
+
+    .an-metric-card.purple .an-progress-fill{
+      background:linear-gradient(90deg, #a78bfa, var(--an-purple));
+    }
+
+    .an-progress-note{
+      margin:12px 0 0;
+      color:#6b7280;
+      font-size:12px;
+      line-height:1.4;
+    }
+
+    .an-table-tools{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 16px;
+      background:#f7faf8;
+      border-bottom:1px solid var(--an-border);
+    }
+
+    .an-search{
+      width:100%;
+      max-width:320px;
+      padding:10px 11px;
+      border:1px solid var(--an-border-2);
+      background:#fff;
+      color:#101820;
+      font-family:var(--an-serif);
+      font-size:14px;
+      outline:none;
+    }
+
+    .an-search:focus{ border-color:var(--an-green); box-shadow:0 0 0 3px rgba(0,182,122,.14); }
+
+    .an-data-table{
+      width:100%;
+      min-width:900px;
+      border-collapse:collapse;
+      background:#fff;
+    }
+
+    .an-visual.is-exporting .an-data-table{
+      min-width:1100px;
+      table-layout:auto;
+    }
+
+    .an-data-table.compact{ min-width:780px; }
+
+    .an-data-table th{
+      padding:13px 11px;
+      background:#0d1714;
+      color:#fff;
+      font-family:var(--an-display);
+      font-size:12px;
+      line-height:1.15;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      text-align:left;
+      border-right:1px solid rgba(255,255,255,.08);
+      vertical-align:bottom;
+      white-space:normal;
+      cursor:pointer;
+    }
+
+    .an-visual.is-exporting .an-data-table th{
+      font-size:12.5px;
+      line-height:1.18;
+      padding:14px 12px;
+    }
+
+    .an-visual.is-exporting .an-data-table td{
+      font-size:13.5px;
+      padding:12px 12px;
+    }
+
+    .an-data-table th:hover{ background:#13231d; }
+
+    .an-data-table th .sort-hint{
+      color:var(--an-green-bright);
+      margin-left:4px;
+      font-size:10px;
+    }
+
+    .an-data-table td{
+      padding:11px 10px;
+      border-top:1px solid var(--an-border-2);
+      font-size:13px;
+      line-height:1.35;
+      vertical-align:middle;
+      color:#1f2937;
+      background:#fff;
+      white-space:nowrap;
+    }
+
+    .an-data-table tbody tr:nth-child(even) td{ background:#fafcfb; }
+
+    .an-data-table tbody tr:hover td{ background:#eafff5; }
+
+    /* FAN EXPERIENCE SCORE HEAT MAP
+       The .an-heat-cell class is applied via JS to the Fan Experience Score column.
+       The background-color is set inline based on value, and the rules below ensure
+       the heat color is never masked by the zebra-striping or hover backgrounds. */
+    .an-data-table td.an-heat-cell,
+    .an-data-table tbody tr:nth-child(even) td.an-heat-cell,
+    .an-data-table tbody tr:hover td.an-heat-cell{
+      background:var(--heat-bg, transparent);
+      font-weight:800;
+      color:#0a1410;
+      text-align:right;
+      font-variant-numeric:tabular-nums;
+      position:relative;
+      box-shadow:inset 4px 0 0 var(--heat-accent, transparent);
+    }
+
+    .an-visual.is-exporting .an-data-table td.an-heat-cell{
+      box-shadow:inset 4px 0 0 var(--heat-accent, transparent);
+    }
+
+    .an-heatmap-legend{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin:14px 18px 4px;
+      padding:10px 14px;
+      background:#f7faf8;
+      border:1px solid var(--an-border);
+      border-left:4px solid var(--an-green);
+    }
+
+    .an-heatmap-legend-title{
+      font-family:var(--an-display);
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:11px;
+      font-weight:900;
+      color:#101820;
+      white-space:nowrap;
+    }
+
+    .an-heatmap-legend-stop{
+      font-family:var(--an-display);
+      font-size:12px;
+      font-weight:800;
+      color:#374151;
+      white-space:nowrap;
+      letter-spacing:.04em;
+    }
+
+    .an-heatmap-legend-bar{
+      flex:1;
+      min-width:120px;
+      height:12px;
+      border:1px solid var(--an-border-2);
+      background:linear-gradient(90deg,
+        hsl(2, 70%, 84%) 0%,
+        hsl(28, 86%, 84%) 30%,
+        hsl(48, 90%, 83%) 55%,
+        hsl(95, 55%, 80%) 80%,
+        hsl(148, 55%, 78%) 100%);
+    }
+
+    .an-rank-cell{
+      font-family:var(--an-display);
+      font-size:18px;
+      font-weight:900;
+      color:#0f5136;
+      text-align:center;
+    }
+
+    .an-team-cell strong{
+      display:block;
+      font-family:var(--an-display);
+      font-size:17px;
+      line-height:1;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+      color:#101820;
+      margin-bottom:4px;
+    }
+
+    .an-team-cell span{
+      display:block;
+      font-size:12px;
+      color:#6b7280;
+    }
+
+    .an-table-note{
+      margin:12px 0 0;
+      color:#6b7280;
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    /* COUNTRY FLAGS — inline SVG backgrounds for crisp vector rendering at any scale.
+       Identical appearance in HTML and in the html2canvas PNG export. */
+    .an-flag{
+      display:inline-block;
+      width:26px;
+      height:18px;
+      margin:0 8px 0 0;
+      vertical-align:-4px;
+      border:1px solid rgba(16,24,32,.22);
+      flex:0 0 auto;
+      position:relative;
+      overflow:hidden;
+      background-color:#fff;
+      background-size:100% 100%;
+      background-repeat:no-repeat;
+      background-position:center center;
+      line-height:0;
+      font-size:0;
+      image-rendering:-webkit-optimize-contrast;
+      image-rendering:crisp-edges;
+    }
+
+    .an-flag > svg{
+      display:block;
+      width:100%;
+      height:100%;
+    }
+
+    .an-flag.ca{
+      background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 40' preserveAspectRatio='none'%3E%3Crect width='60' height='40' fill='%23ffffff'/%3E%3Crect width='15' height='40' fill='%23d52b1e'/%3E%3Crect x='45' width='15' height='40' fill='%23d52b1e'/%3E%3Cpath d='M30 8.5 L31.4 12 L34.5 11.2 L33.4 14.2 L37.5 15.4 L35 17.1 L38 19.4 L34.2 19.7 L35.4 22.5 L31.7 21.7 L31.6 24.6 L30.3 23.6 L30 27.5 L29.7 23.6 L28.4 24.6 L28.3 21.7 L24.6 22.5 L25.8 19.7 L22 19.4 L25 17.1 L22.5 15.4 L26.6 14.2 L25.5 11.2 L28.6 12 Z' fill='%23d52b1e'/%3E%3C/svg%3E");
+    }
+
+    .an-flag.mx{
+      background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 40' preserveAspectRatio='none'%3E%3Crect width='20' height='40' fill='%23006847'/%3E%3Crect x='20' width='20' height='40' fill='%23ffffff'/%3E%3Crect x='40' width='20' height='40' fill='%23ce1126'/%3E%3C/svg%3E");
+    }
+
+    .an-flag.us{
+      background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 40' preserveAspectRatio='none'%3E%3Crect width='60' height='40' fill='%23bf0a30'/%3E%3Crect y='3.077' width='60' height='3.077' fill='%23ffffff'/%3E%3Crect y='9.231' width='60' height='3.077' fill='%23ffffff'/%3E%3Crect y='15.385' width='60' height='3.077' fill='%23ffffff'/%3E%3Crect y='21.538' width='60' height='3.077' fill='%23ffffff'/%3E%3Crect y='27.692' width='60' height='3.077' fill='%23ffffff'/%3E%3Crect y='33.846' width='60' height='3.077' fill='%23ffffff'/%3E%3Crect width='24' height='21.538' fill='%23002868'/%3E%3C/svg%3E");
+    }
+
+    .an-flag.us:before{
+      content:none;
+    }
+
+    .an-city-label strong,
+    .an-team-cell strong{
+      display:flex;
+      align-items:center;
+      gap:0;
+    }
+
+    .an-city-label strong .an-flag,
+    .an-team-cell strong .an-flag{
+      display:inline-block;
+      margin-top:0;
+    }
+
+    /* TABBED RANKING VIEWS */
+    .an-tab-shell{
+      border:1px solid var(--an-border);
+      background:#fff;
+      overflow:hidden;
+    }
+
+    .an-tab-topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 18px;
+      background:#f7faf8;
+      border-bottom:1px solid var(--an-border);
+      border-left:6px solid var(--an-green);
+      flex-wrap:wrap;
+    }
+
+    .an-tab-topbar h3{
+      margin:0 0 4px;
+      font-family:var(--an-display);
+      color:#20252a;
+      font-size:22px;
+      line-height:1.05;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      font-weight:900;
+    }
+
+    .an-tab-topbar p{
+      margin:0;
+      color:#6d7880;
+      font-size:13.5px;
+      line-height:1.45;
+    }
+
+    .an-score-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:7px 10px;
+      background:#fff;
+      border:1px solid var(--an-border);
+      color:var(--an-green-dark);
+      font-family:var(--an-display);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+
+    .an-score-badge strong{ color:#101820; }
+
+    .an-tab-nav{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:14px 18px 0;
+      background:#fff;
+      flex-wrap:wrap;
+    }
+
+    .an-tab-btn{
+      appearance:none;
+      border:1px solid var(--an-border-2);
+      background:#fff;
+      color:#101820;
+      cursor:pointer;
+      padding:10px 14px;
+      font-family:var(--an-display);
+      font-size:13px;
+      line-height:1;
+      font-weight:900;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .an-tab-btn:hover{ background:#f7faf8; }
+
+    .an-tab-btn.active{
+      background:var(--an-green);
+      color:var(--an-navy);
+      border-color:var(--an-green);
+    }
+
+    .an-tab-panels{
+      padding:14px 18px 18px;
+      background:#fff;
+    }
+
+    .an-tab-panel{ display:none; }
+    .an-tab-panel.active{ display:block; }
+
+    .an-panel-tools{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin:0 0 12px;
+      flex-wrap:wrap;
+    }
+
+    .an-panel-tools-left{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .an-score-caption{
+      margin:0 0 10px;
+      padding:10px 12px;
+      background:#0d1714;
+      color:#d8e6e2;
+      border-left:5px solid var(--an-green);
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    .an-score-caption strong{
+      color:var(--an-green-bright);
+      font-family:var(--an-display);
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .an-method-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:8px;
+      margin-top:14px;
+    }
+
+    .an-method-card{
+      padding:14px;
+      background:#fff;
+      border:1px solid var(--an-border);
+      border-top:4px solid var(--an-green);
+    }
+
+    .an-method-card strong{
+      display:block;
+      font-family:var(--an-display);
+      font-size:18px;
+      line-height:1.05;
+      text-transform:uppercase;
+      color:#101820;
+    }
+
+    .an-method-card span{
+      display:block;
+      margin-top:8px;
+      font-family:var(--an-display);
+      font-size:28px;
+      font-weight:900;
+      color:#0f5136;
+    }
+
+    .an-method-card p{
+      margin:8px 0 0;
+      font-size:12.5px;
+      line-height:1.4;
+      color:#606a70;
+    }
+
+
+    /* 720PX EXPORT FIX — keep downloads at the real layout width.
+       html2canvas uses scale:4, so the final PNG width is 720 × 4 = 2880px. */
+    .an-visual.is-exporting{
+      width:720px !important;
+      max-width:720px !important;
+      overflow:hidden !important;
+    }
+
+    .an-visual.is-exporting .an-top{
+      padding:22px 180px 20px 22px !important;
+      min-height:108px !important;
+    }
+
+    .an-visual.is-exporting .an-logo-lockup{
+      top:18px !important;
+      right:22px !important;
+      width:160px !important;
+      height:24px !important;
+    }
+
+    .an-visual.is-exporting .an-logo-svg{
+      width:160px !important;
+      height:24px !important;
+    }
+
+    .an-visual.is-exporting .an-visual-body{
+      padding:18px !important;
+    }
+
+    .an-visual.is-exporting .an-chart-scroll,
+    .an-visual.is-exporting .an-table-scroll{
+      overflow-x:auto !important;
+      overflow-y:hidden !important;
+      width:100% !important;
+    }
+
+    .an-visual.is-exporting .an-bar-chart{
+      min-width:0 !important;
+      padding:14px 14px 12px !important;
+      gap:8px !important;
+    }
+
+    .an-visual.is-exporting .an-bar-row{
+      grid-template-columns:38px 174px minmax(190px, 1fr) 72px !important;
+      gap:8px !important;
+    }
+
+    .an-visual.is-exporting .an-track{
+      height:26px !important;
+    }
+
+    .an-visual.is-exporting .an-score{
+      font-size:22px !important;
+      padding-right:2px !important;
+    }
+
+    .an-visual.is-exporting .an-data-table{
+      min-width:900px !important;
+      table-layout:auto !important;
+    }
+
+    .an-visual.is-exporting .an-data-table.compact{
+      min-width:780px !important;
+    }
+
+    .an-visual.is-exporting .an-data-table th{
+      font-size:12px !important;
+      line-height:1.15 !important;
+      padding:13px 11px !important;
+    }
+
+    .an-visual.is-exporting .an-data-table td{
+      font-size:13px !important;
+      padding:11px 10px !important;
+    }
+
+    /* Note: layout is designed for 720px wide — Action Network's content width.
+       On narrow viewports the page scrolls horizontally using slim native
+       AN-green scrollbars (both vertical and horizontal). */
+  </style>
+</head>
+<body>
+  <main class="an-page">
+
+    <section class="an-section-copy an-kf-section">
+      <div class="an-kf-label">Key Findings</div>
+
+      <div class="an-kf-grid">
+
+        <div class="an-kf-card is-featured">
+          <div class="an-kf-rank">1</div>
+          <div class="an-kf-body">
+            <h4>Vancouver Leads the Globe</h4>
+            <p><strong>Vancouver ranks No. 1 globally</strong> with a Fan Experience Score of <strong>82.2 out of 100</strong>, driven by elite walkability, the highest hotel density and strong nearby bar density in the index.</p>
+          </div>
+          <span class="an-kf-stat">Score 82.2 / 100</span>
+        </div>
+
+        <div class="an-kf-card">
+          <div class="an-kf-rank">2</div>
+          <div class="an-kf-body">
+            <h4>Canada Claims the Top Two Spots</h4>
+            <p><strong>Canada takes both #1 and #2 globally</strong>, with Vancouver first and Toronto second. Seattle is the highest-ranked U.S. host city, placing third overall.</p>
+          </div>
+          <span class="an-kf-stat">Global #1 & #2</span>
+        </div>
+
+        <div class="an-kf-card">
+          <div class="an-kf-rank">3</div>
+          <div class="an-kf-body">
+            <h4>Seattle Tops All U.S. Cities</h4>
+            <p><strong>Seattle leads the U.S. ranking</strong> with a score of <strong>73.0</strong>, ahead of Atlanta and Los Angeles when U.S. host cities are scored separately.</p>
+          </div>
+          <span class="an-kf-stat">U.S. Score 73.0</span>
+        </div>
+
+        <div class="an-kf-card">
+          <div class="an-kf-rank">4</div>
+          <div class="an-kf-body">
+            <h4>Atlanta: Fastest Stadium Journey</h4>
+            <p><strong>Atlanta has the shortest city-centre-to-stadium transit time</strong> at just <strong>27 minutes</strong>, though its overall score is held back by safety and hot-weather factors.</p>
+          </div>
+          <span class="an-kf-stat">27-Min Journey</span>
+        </div>
+
+        <div class="an-kf-card">
+          <div class="an-kf-rank">5</div>
+          <div class="an-kf-body">
+            <h4>Miami Ranks Last Among U.S. Cities</h4>
+            <p><strong>Miami finishes last among U.S. host cities</strong>, with low walkability, limited nearby bar and hotel density, and one of the hottest matchday temperature profiles in the index.</p>
+          </div>
+          <span class="an-kf-stat">U.S. Rank #11</span>
+        </div>
+
+        <div class="an-kf-card">
+          <div class="an-kf-rank">6</div>
+          <div class="an-kf-body">
+            <h4>Kansas City: Hardest Draw Globally</h4>
+            <p><strong>Kansas City ranks last globally</strong> with a score of <strong>16.7</strong>, driven by long journey times, low walkability and very limited nearby hotel density.</p>
+          </div>
+          <span class="an-kf-stat">Score 16.7 / 100</span>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="an-visual-shell">
+      <div class="an-download-row">
+        <div class="an-tools-left">
+          <button class="an-btn" onclick="downloadVisual('visual-key-stats', 'action-network-world-cup-fan-experience-key-stats.png')">Download Image</button>
+        </div>
+        <div class="an-download-note" id="status-visual-key-stats">High-res 2880px PNG export ready</div>
+      </div>
+
+      <article class="an-visual" id="visual-key-stats">
+        <header class="an-top">
+          <div class="an-logo-lockup" aria-label="Action Network">
+            <svg class="an-logo-svg" viewBox="0 0 228 34" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Action Network">
+              <circle class="an-logo-circle" cx="13" cy="17" r="11"></circle>
+              <path class="an-logo-check" d="M8 17.3 l3.4 3.4 l6.8 -7.4"></path>
+              <text class="an-logo-word" x="30" y="22.4">ACTION NETWORK</text>
+            </svg>
+          </div>
+          <div class="an-kicker">Data Snapshot</div>
+          <h2>2026 World Cup Fan Experience Index</h2>
+          <p>A quick visual summary of the biggest ranking stories across the global and U.S. host-city results.</p>
+        </header>
+        <div class="an-visual-body">
+          <div class="an-snapshot-grid">
+
+            <div class="an-snapshot-card has-img"
+              style="background:linear-gradient(rgba(5,28,14,.72),rgba(5,28,14,.72)),url('https://images.unsplash.com/photo-1502228362178-086346ac6862?w=800&q=75&auto=format&fit=crop');background-size:cover;background-position:center;--card-city-bright:#00e09a;--card-accent:#00865b;">
+              <div class="an-card-top">
+                <p class="an-card-label">No. 1 global host city</p>
+                <span class="an-card-score">82.2</span>
+              </div>
+              <div class="an-card-city-wrap">
+                <div class="an-card-city"><span class="an-flag ca" aria-hidden="true"></span>Vancouver</div>
+              </div>
+              <p class="an-card-note">Leads all 16 host cities, with BC Place scoring strongest across the index.</p>
+            </div>
+
+            <div class="an-snapshot-card blue has-img"
+              style="background:linear-gradient(rgba(5,18,35,.74),rgba(5,18,35,.74)),url('https://images.unsplash.com/photo-1731450626181-8251d2d3869b?w=800&q=75&auto=format&fit=crop');background-size:cover;background-position:center;--card-city-bright:#5dd8ff;--card-accent:#285d78;">
+              <div class="an-card-top">
+                <p class="an-card-label">No. 1 U.S. host city</p>
+                <span class="an-card-score">73.0</span>
+              </div>
+              <div class="an-card-city-wrap">
+                <div class="an-card-city"><span class="an-flag us" aria-hidden="true"></span>Seattle</div>
+              </div>
+              <p class="an-card-note">Ranks first among U.S. hosts and third globally.</p>
+            </div>
+
+            <div class="an-snapshot-card gold has-img"
+              style="background:linear-gradient(rgba(32,22,4,.72),rgba(32,22,4,.72)),url('https://images.unsplash.com/photo-1756172603176-23479ac4139b?w=800&q=75&auto=format&fit=crop');background-size:cover;background-position:center;--card-city-bright:#ffd94a;--card-accent:#8a6100;">
+              <div class="an-card-top">
+                <p class="an-card-label">Canada top-two finish</p>
+                <span class="an-card-score">#1 &amp; #2</span>
+              </div>
+              <div class="an-card-city-wrap">
+                <div class="an-card-city" style="flex-direction:column;align-items:flex-start;gap:4px;font-size:clamp(17px,2.8vw,22px);">
+                  <span style="display:inline-flex;align-items:center;gap:7px;"><span class="an-flag ca" aria-hidden="true"></span>Vancouver</span>
+                  <span style="display:inline-flex;align-items:center;gap:7px;"><span class="an-flag ca" aria-hidden="true"></span>Toronto</span>
+                </div>
+              </div>
+              <p class="an-card-note">Take the first two global places out of 16 host cities.</p>
+            </div>
+
+            <div class="an-snapshot-card red has-img"
+              style="background:linear-gradient(rgba(35,7,7,.72),rgba(35,7,7,.72)),url('https://images.unsplash.com/photo-1536622638768-9403a9d35a1a?w=800&q=75&auto=format&fit=crop');background-size:cover;background-position:center;--card-city-bright:#ff8787;--card-accent:#b91c1c;">
+              <div class="an-card-top">
+                <p class="an-card-label">Lowest global score</p>
+                <span class="an-card-score">16.7</span>
+              </div>
+              <div class="an-card-city-wrap">
+                <div class="an-card-city"><span class="an-flag us" aria-hidden="true"></span>Kansas City</div>
+              </div>
+              <p class="an-card-note">Ranks 16th globally, mainly due to travel and density challenges.</p>
+            </div>
+          </div>
+        </div>
+        <p class="an-source"><strong>Source:</strong> Action Network analysis of 16 FIFA World Cup 2026 host cities. Scores shown out of 100.</p>
+      </article>
+    </section>
+
+    <section class="an-section-copy">
+      <h2>Global Fan Experience Ranking</h2>
+      <p>Vancouver is the clear winner in the global table, finishing <strong>19 points ahead of Toronto</strong> and nearly <strong>25 points ahead of Seattle</strong>. The Canadian host city performs especially well on walkability, hotel density, bar density and match-day weather.</p>
+      <p>The global ranking also shows how different match-day strengths can offset weaknesses. Mexico City and Monterrey score well on cost, while Atlanta benefits from the shortest listed journey time to the stadium. However, cities with long transit routes, lower walkability, low nearby hotel density or hotter weather tend to fall down the final table.</p>
+    </section>
+
+    <section class="an-visual-shell">
+      <div class="an-download-row">
+        <div class="an-tools-left">
+          <button class="an-btn" onclick="downloadActiveTab('global-ranking-tabs', 'action-network-world-cup-global-ranking-view.png')">Download Active View</button>
+          <button class="an-btn secondary" onclick="downloadCSV('global-table', 'action-network-world-cup-global-ranking.csv')">Download CSV</button>
+        </div>
+        <div class="an-download-note" id="status-global-ranking-tabs">Switch between chart and table views</div>
+      </div>
+
+      <article class="an-visual" id="global-ranking-tabs">
+        <header class="an-top">
+          <div class="an-logo-lockup" aria-label="Action Network">
+            <svg class="an-logo-svg" viewBox="0 0 228 34" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Action Network">
+              <circle class="an-logo-circle" cx="13" cy="17" r="11"></circle>
+              <path class="an-logo-check" d="M8 17.3 l3.4 3.4 l6.8 -7.4"></path>
+              <text class="an-logo-word" x="30" y="22.4">ACTION NETWORK</text>
+            </svg>
+          </div>
+          <div class="an-kicker">Global Ranking</div>
+          <h2>2026 World Cup Global Host-City Ranking</h2>
+          <p>View the global ranking as either a chart or a sortable interactive table.</p>
+        </header>
+
+        <div class="an-visual-body">
+          <div class="an-tab-shell">
+            <div class="an-tab-topbar">
+              <div>
+                <h3>Global host-city ranking</h3>
+                <p>Scores are normalized across all 16 host cities using the full weighted index.</p>
+              </div>
+              <span class="an-score-badge">Score <strong>out of 100</strong></span>
+            </div>
+
+            <div class="an-tab-nav" role="tablist" aria-label="Global ranking views">
+              <button class="an-tab-btn active" type="button" data-tab-target="global-chart-panel">Chart View</button>
+              <button class="an-tab-btn" type="button" data-tab-target="global-table-panel">Table View</button>
+            </div>
+
+            <div class="an-tab-panels">
+              <div class="an-tab-panel active" id="global-chart-panel">
+                <p class="an-score-caption"><strong>Score out of 100:</strong> Higher scores indicate a stronger overall fan experience across accessibility, cost, atmosphere, safety, weather and accommodation.</p>
+                <div class="an-chart-scroll">
+                  <div class="an-bar-chart">
+                    <div class="an-bar-row"><span class="an-rank-pill">1</span><div class="an-city-label"><strong><span class="an-flag ca" aria-hidden="true"></span>Vancouver</strong><span>BC Place</span></div><div class="an-track"><div class="an-fill" data-width="100%"></div></div><div class="an-score">82.2</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">2</span><div class="an-city-label"><strong><span class="an-flag ca" aria-hidden="true"></span>Toronto</strong><span>BMO Field</span></div><div class="an-track"><div class="an-fill blue" data-width="76.9%"></div></div><div class="an-score">63.2</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">3</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Seattle</strong><span>Lumen Field</span></div><div class="an-track"><div class="an-fill gold" data-width="69.7%"></div></div><div class="an-score">57.3</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">4</span><div class="an-city-label"><strong><span class="an-flag mx" aria-hidden="true"></span>Mexico City</strong><span>Estadio Azteca</span></div><div class="an-track"><div class="an-fill" data-width="56.3%"></div></div><div class="an-score">46.3</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">5</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Atlanta</strong><span>Mercedes-Benz Stadium</span></div><div class="an-track"><div class="an-fill blue" data-width="53.0%"></div></div><div class="an-score">43.6</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">6</span><div class="an-city-label"><strong><span class="an-flag mx" aria-hidden="true"></span>Monterrey</strong><span>Estadio BBVA</span></div><div class="an-track"><div class="an-fill gold" data-width="50.0%"></div></div><div class="an-score">41.1</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">7</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Los Angeles</strong><span>SoFi Stadium</span></div><div class="an-track"><div class="an-fill" data-width="45.7%"></div></div><div class="an-score">37.6</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">8</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Dallas</strong><span>AT&amp;T Stadium</span></div><div class="an-track"><div class="an-fill blue" data-width="39.8%"></div></div><div class="an-score">32.7</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">9</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Boston</strong><span>Gillette Stadium</span></div><div class="an-track"><div class="an-fill gold" data-width="39.8%"></div></div><div class="an-score">32.7</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">10</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Houston</strong><span>NRG Stadium</span></div><div class="an-track"><div class="an-fill" data-width="34.4%"></div></div><div class="an-score">28.3</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">11</span><div class="an-city-label"><strong><span class="an-flag mx" aria-hidden="true"></span>Guadalajara</strong><span>Estadio Akron</span></div><div class="an-track"><div class="an-fill blue" data-width="33.6%"></div></div><div class="an-score">27.6</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">12</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>San Francisco</strong><span>Levi's Stadium</span></div><div class="an-track"><div class="an-fill gold" data-width="30.3%"></div></div><div class="an-score">24.9</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">13</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>New York/NJ</strong><span>MetLife Stadium</span></div><div class="an-track"><div class="an-fill" data-width="29.4%"></div></div><div class="an-score">24.2</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">14</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Philadelphia</strong><span>Lincoln Financial Field</span></div><div class="an-track"><div class="an-fill blue" data-width="29.2%"></div></div><div class="an-score">24.0</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">15</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Miami</strong><span>Hard Rock Stadium</span></div><div class="an-track"><div class="an-fill red" data-width="23.2%"></div></div><div class="an-score">19.1</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">16</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Kansas City</strong><span>Arrowhead Stadium</span></div><div class="an-track"><div class="an-fill red" data-width="20.3%"></div></div><div class="an-score">16.7</div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="an-tab-panel" id="global-table-panel">
+                <div class="an-panel-tools">
+                  <div class="an-panel-tools-left">
+                    <input class="an-search" type="search" placeholder="Search global ranking..." data-table="global-table" />
+                  </div>
+                  <span class="an-chart-tag">Click headers to sort</span>
+                </div>
+                <div class="an-heatmap-legend" data-heatmap-for="global-table">
+                  <span class="an-heatmap-legend-title">Fan Experience Score heat map</span>
+                  <span class="an-heatmap-legend-stop low" data-stop="min">Low</span>
+                  <div class="an-heatmap-legend-bar"></div>
+                  <span class="an-heatmap-legend-stop high" data-stop="max">High</span>
+                </div>
+                <div class="an-table-scroll">
+                  <table class="an-data-table" id="global-table">
+                    <thead>
+                      <tr>
+                        <th data-type="number">Rank <span class="sort-hint">↕</span></th>
+                        <th data-type="text">Host City <span class="sort-hint">↕</span></th>
+                        <th data-type="text">Stadium <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Fan Experience<br>Score (0–100) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Journey Time<br>(min) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Walkability<br>Score (0–100) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Avg Meal Cost<br>(USD) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Avg Beer Price<br>(USD) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Nearby Bar Density<br>(places/sq. mi.) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Football Pitches<br>(per 100k residents) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Safety<br>Score <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Avg Matchday<br>Temp (°F) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Nearby Hotel Density<br>(places/sq. mi.) <span class="sort-hint">↕</span></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td class="an-rank-cell">1</td><td class="an-team-cell"><strong><span class="an-flag ca" aria-hidden="true"></span>Vancouver</strong></td><td>BC Place</td><td>82.2</td><td>36</td><td>98</td><td>$21.92</td><td>$5.84</td><td>12.77</td><td>90.14</td><td>57.17</td><td>70.3</td><td>3.71</td></tr>
+                      <tr><td class="an-rank-cell">2</td><td class="an-team-cell"><strong><span class="an-flag ca" aria-hidden="true"></span>Toronto</strong></td><td>BMO Field</td><td>63.2</td><td>49</td><td>79</td><td>$18.27</td><td>$6.58</td><td>19.98</td><td>16.59</td><td>56.40</td><td>77.4</td><td>1.10</td></tr>
+                      <tr><td class="an-rank-cell">3</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Seattle</strong></td><td>Lumen Field</td><td>57.3</td><td>45</td><td>89</td><td>$21.00</td><td>$8.00</td><td>13.37</td><td>11.45</td><td>44.67</td><td>74.1</td><td>2.51</td></tr>
+                      <tr><td class="an-rank-cell">4</td><td class="an-team-cell"><strong><span class="an-flag mx" aria-hidden="true"></span>Mexico City</strong></td><td>Estadio Azteca</td><td>46.3</td><td>94</td><td>84</td><td>$11.62</td><td>$3.37</td><td>1.31</td><td>1.15</td><td>33.53</td><td>75.0</td><td>1.03</td></tr>
+                      <tr><td class="an-rank-cell">5</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Atlanta</strong></td><td>Mercedes-Benz Stadium</td><td>43.6</td><td>27</td><td>79</td><td>$25.00</td><td>$6.50</td><td>6.26</td><td>26.22</td><td>35.86</td><td>87.6</td><td>1.70</td></tr>
+                      <tr><td class="an-rank-cell">6</td><td class="an-team-cell"><strong><span class="an-flag mx" aria-hidden="true"></span>Monterrey</strong></td><td>Estadio BBVA</td><td>41.1</td><td>116</td><td>47</td><td>$14.52</td><td>$2.90</td><td>0.57</td><td>9.97</td><td>52.01</td><td>92.9</td><td>0.67</td></tr>
+                      <tr><td class="an-rank-cell">7</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Los Angeles</strong></td><td>SoFi Stadium</td><td>37.6</td><td>51</td><td>46</td><td>$25.00</td><td>$8.00</td><td>0.32</td><td>14.83</td><td>46.06</td><td>80.6</td><td>2.02</td></tr>
+                      <tr><td class="an-rank-cell">8</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Dallas</strong></td><td>AT&amp;T Stadium</td><td>32.7</td><td>102</td><td>56</td><td>$20.00</td><td>$7.25</td><td>0.74</td><td>20.34</td><td>48.59</td><td>94.1</td><td>1.06</td></tr>
+                      <tr><td class="an-rank-cell">9</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Boston</strong></td><td>Gillette Stadium</td><td>32.7</td><td>107</td><td>44</td><td>$25.00</td><td>$8.00</td><td>0.28</td><td>31.73</td><td>59.74</td><td>80.3</td><td>0.11</td></tr>
+                      <tr><td class="an-rank-cell">10</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Houston</strong></td><td>NRG Stadium</td><td>28.3</td><td>87</td><td>31</td><td>$21.00</td><td>$6.00</td><td>0.95</td><td>17.61</td><td>36.95</td><td>91.4</td><td>1.31</td></tr>
+                      <tr><td class="an-rank-cell">11</td><td class="an-team-cell"><strong><span class="an-flag mx" aria-hidden="true"></span>Guadalajara</strong></td><td>Estadio Akron</td><td>27.6</td><td>168</td><td>12</td><td>$13.07</td><td>$2.90</td><td>0.64</td><td>14.72</td><td>37.57</td><td>80.6</td><td>0.32</td></tr>
+                      <tr><td class="an-rank-cell">12</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>San Francisco</strong></td><td>Levi's Stadium</td><td>24.9</td><td>112</td><td>42</td><td>$26.50</td><td>$8.00</td><td>1.13</td><td>43.27</td><td>39.47</td><td>80.6</td><td>0.67</td></tr>
+                      <tr><td class="an-rank-cell">13</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>New York/NJ</strong></td><td>MetLife Stadium</td><td>24.2</td><td>122</td><td>40</td><td>$25.00</td><td>$8.00</td><td>0.46</td><td>1.69</td><td>49.12</td><td>83.7</td><td>0.64</td></tr>
+                      <tr><td class="an-rank-cell">14</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Philadelphia</strong></td><td>Lincoln Financial Field</td><td>24.0</td><td>66</td><td>19</td><td>$21.00</td><td>$6.00</td><td>2.51</td><td>10.46</td><td>34.52</td><td>86.2</td><td>0.11</td></tr>
+                      <tr><td class="an-rank-cell">15</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Miami</strong></td><td>Hard Rock Stadium</td><td>19.1</td><td>111</td><td>29</td><td>$30.00</td><td>$8.00</td><td>0.07</td><td>37.63</td><td>46.70</td><td>88.1</td><td>0.11</td></tr>
+                      <tr><td class="an-rank-cell">16</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Kansas City</strong></td><td>Arrowhead Stadium</td><td>16.7</td><td>136</td><td>15</td><td>$25.00</td><td>$7.00</td><td>0.21</td><td>28.65</td><td>41.40</td><td>87.6</td><td>0.21</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="an-source"><strong>Source:</strong> Action Network analysis. Scores are shown out of 100. Lower-is-better metrics are inverted in the weighted index.</p>
+      </article>
+    </section>
+
+    <section class="an-section-copy">
+      <h2>U.S. Host City Ranking</h2>
+      <p>When the 11 U.S. host cities are ranked separately, Seattle leads with a score of <strong>73.0</strong>. Its high walkability, strong bar density, relatively mild weather and hotel availability near Lumen Field make it the strongest U.S. fan experience in the data.</p>
+      <p>Atlanta ranks second among U.S. cities thanks to its <strong>27-minute</strong> listed stadium journey time and strong walkability, while Los Angeles takes third. At the bottom, Miami and Kansas City face the toughest fan-experience profile among U.S. hosts, with lower walkability and limited nearby stadium-area density.</p>
+    </section>
+
+    <section class="an-visual-shell">
+      <div class="an-download-row">
+        <div class="an-tools-left">
+          <button class="an-btn" onclick="downloadActiveTab('us-ranking-tabs', 'action-network-world-cup-us-ranking-view.png')">Download Active View</button>
+          <button class="an-btn secondary" onclick="downloadCSV('us-table', 'action-network-world-cup-us-ranking.csv')">Download CSV</button>
+        </div>
+        <div class="an-download-note" id="status-us-ranking-tabs">Switch between chart and table views</div>
+      </div>
+
+      <article class="an-visual" id="us-ranking-tabs">
+        <header class="an-top">
+          <div class="an-logo-lockup" aria-label="Action Network">
+            <svg class="an-logo-svg" viewBox="0 0 228 34" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Action Network">
+              <circle class="an-logo-circle" cx="13" cy="17" r="11"></circle>
+              <path class="an-logo-check" d="M8 17.3 l3.4 3.4 l6.8 -7.4"></path>
+              <text class="an-logo-word" x="30" y="22.4">ACTION NETWORK</text>
+            </svg>
+          </div>
+          <div class="an-kicker">U.S. Ranking</div>
+          <h2>2026 World Cup U.S. Host-City Ranking</h2>
+          <p>View the U.S.-only ranking as either a chart or a sortable interactive table.</p>
+        </header>
+
+        <div class="an-visual-body">
+          <div class="an-tab-shell">
+            <div class="an-tab-topbar">
+              <div>
+                <h3>U.S. host-city ranking</h3>
+                <p>Scores are normalized within the 11 U.S. host cities using the same weighted index structure.</p>
+              </div>
+              <span class="an-score-badge">Score <strong>out of 100</strong></span>
+            </div>
+
+            <div class="an-tab-nav" role="tablist" aria-label="U.S. ranking views">
+              <button class="an-tab-btn active" type="button" data-tab-target="us-chart-panel">Chart View</button>
+              <button class="an-tab-btn" type="button" data-tab-target="us-table-panel">Table View</button>
+            </div>
+
+            <div class="an-tab-panels">
+              <div class="an-tab-panel active" id="us-chart-panel">
+                <p class="an-score-caption"><strong>Score out of 100:</strong> Higher scores indicate a stronger overall fan experience within the U.S.-only ranking.</p>
+                <div class="an-chart-scroll">
+                  <div class="an-bar-chart">
+                    <div class="an-bar-row"><span class="an-rank-pill">1</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Seattle</strong><span>Lumen Field</span></div><div class="an-track"><div class="an-fill" data-width="100%"></div></div><div class="an-score">73.0</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">2</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Atlanta</strong><span>Mercedes-Benz Stadium</span></div><div class="an-track"><div class="an-fill blue" data-width="80.8%"></div></div><div class="an-score">59.0</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">3</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Los Angeles</strong><span>SoFi Stadium</span></div><div class="an-track"><div class="an-fill gold" data-width="62.1%"></div></div><div class="an-score">45.3</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">4</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Dallas</strong><span>AT&amp;T Stadium</span></div><div class="an-track"><div class="an-fill" data-width="57.5%"></div></div><div class="an-score">42.0</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">5</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Houston</strong><span>NRG Stadium</span></div><div class="an-track"><div class="an-fill blue" data-width="56.0%"></div></div><div class="an-score">40.9</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">6</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Boston</strong><span>Gillette Stadium</span></div><div class="an-track"><div class="an-fill gold" data-width="50.7%"></div></div><div class="an-score">37.0</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">7</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Philadelphia</strong><span>Lincoln Financial Field</span></div><div class="an-track"><div class="an-fill" data-width="47.1%"></div></div><div class="an-score">34.4</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">8</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>San Francisco</strong><span>Levi's Stadium</span></div><div class="an-track"><div class="an-fill blue" data-width="41.8%"></div></div><div class="an-score">30.5</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">9</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>New York/NJ</strong><span>MetLife Stadium</span></div><div class="an-track"><div class="an-fill gold" data-width="35.2%"></div></div><div class="an-score">25.7</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">10</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Kansas City</strong><span>Arrowhead Stadium</span></div><div class="an-track"><div class="an-fill red" data-width="29.9%"></div></div><div class="an-score">21.8</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">11</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Miami</strong><span>Hard Rock Stadium</span></div><div class="an-track"><div class="an-fill red" data-width="28.1%"></div></div><div class="an-score">20.5</div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="an-tab-panel" id="us-table-panel">
+                <div class="an-panel-tools">
+                  <div class="an-panel-tools-left">
+                    <input class="an-search" type="search" placeholder="Search U.S. ranking..." data-table="us-table" />
+                  </div>
+                  <span class="an-chart-tag">Click headers to sort</span>
+                </div>
+                <div class="an-heatmap-legend" data-heatmap-for="us-table">
+                  <span class="an-heatmap-legend-title">Fan Experience Score heat map</span>
+                  <span class="an-heatmap-legend-stop low" data-stop="min">Low</span>
+                  <div class="an-heatmap-legend-bar"></div>
+                  <span class="an-heatmap-legend-stop high" data-stop="max">High</span>
+                </div>
+                <div class="an-table-scroll">
+                  <table class="an-data-table" id="us-table">
+                    <thead>
+                      <tr>
+                        <th data-type="number">Rank <span class="sort-hint">↕</span></th>
+                        <th data-type="text">Host City <span class="sort-hint">↕</span></th>
+                        <th data-type="text">Stadium <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Fan Experience<br>Score (0–100) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Journey Time<br>(min) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Walkability<br>Score (0–100) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Avg Meal Cost<br>(USD) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Avg Beer Price<br>(USD) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Nearby Bar Density<br>(places/sq. mi.) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Football Pitches<br>(per 100k residents) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Safety<br>Score <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Avg Matchday<br>Temp (°F) <span class="sort-hint">↕</span></th>
+                        <th data-type="number">Nearby Hotel Density<br>(places/sq. mi.) <span class="sort-hint">↕</span></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td class="an-rank-cell">1</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Seattle</strong></td><td>Lumen Field</td><td>73.0</td><td>45</td><td>89</td><td>$21.00</td><td>$8.00</td><td>13.37</td><td>11.45</td><td>44.67</td><td>74.1</td><td>2.51</td></tr>
+                      <tr><td class="an-rank-cell">2</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Atlanta</strong></td><td>Mercedes-Benz Stadium</td><td>59.0</td><td>27</td><td>79</td><td>$25.00</td><td>$6.50</td><td>6.26</td><td>26.22</td><td>35.86</td><td>87.6</td><td>1.70</td></tr>
+                      <tr><td class="an-rank-cell">3</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Los Angeles</strong></td><td>SoFi Stadium</td><td>45.3</td><td>51</td><td>46</td><td>$25.00</td><td>$8.00</td><td>0.32</td><td>14.83</td><td>46.06</td><td>80.6</td><td>2.02</td></tr>
+                      <tr><td class="an-rank-cell">4</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Dallas</strong></td><td>AT&amp;T Stadium</td><td>42.0</td><td>102</td><td>56</td><td>$20.00</td><td>$7.25</td><td>0.74</td><td>20.34</td><td>48.59</td><td>94.1</td><td>1.06</td></tr>
+                      <tr><td class="an-rank-cell">5</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Houston</strong></td><td>NRG Stadium</td><td>40.9</td><td>87</td><td>31</td><td>$21.00</td><td>$6.00</td><td>0.95</td><td>17.61</td><td>36.95</td><td>91.4</td><td>1.31</td></tr>
+                      <tr><td class="an-rank-cell">6</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Boston</strong></td><td>Gillette Stadium</td><td>37.0</td><td>107</td><td>44</td><td>$25.00</td><td>$8.00</td><td>0.28</td><td>31.73</td><td>59.74</td><td>80.3</td><td>0.11</td></tr>
+                      <tr><td class="an-rank-cell">7</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Philadelphia</strong></td><td>Lincoln Financial Field</td><td>34.4</td><td>66</td><td>19</td><td>$21.00</td><td>$6.00</td><td>2.51</td><td>10.46</td><td>34.52</td><td>86.2</td><td>0.11</td></tr>
+                      <tr><td class="an-rank-cell">8</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>San Francisco</strong></td><td>Levi's Stadium</td><td>30.5</td><td>112</td><td>42</td><td>$26.50</td><td>$8.00</td><td>1.13</td><td>43.27</td><td>39.47</td><td>80.6</td><td>0.67</td></tr>
+                      <tr><td class="an-rank-cell">9</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>New York/NJ</strong></td><td>MetLife Stadium</td><td>25.7</td><td>122</td><td>40</td><td>$25.00</td><td>$8.00</td><td>0.46</td><td>1.69</td><td>49.12</td><td>83.7</td><td>0.64</td></tr>
+                      <tr><td class="an-rank-cell">10</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Kansas City</strong></td><td>Arrowhead Stadium</td><td>21.8</td><td>136</td><td>15</td><td>$25.00</td><td>$7.00</td><td>0.21</td><td>28.65</td><td>41.40</td><td>87.6</td><td>0.21</td></tr>
+                      <tr><td class="an-rank-cell">11</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Miami</strong></td><td>Hard Rock Stadium</td><td>20.5</td><td>111</td><td>29</td><td>$30.00</td><td>$8.00</td><td>0.07</td><td>37.63</td><td>46.70</td><td>88.1</td><td>0.11</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="an-source"><strong>Source:</strong> Action Network analysis. Scores are shown out of 100. U.S. rankings are normalized within U.S. cities only, with the same category weights as the global index.</p>
+      </article>
+    </section>
+
+    <section class="an-section-copy">
+      <h2>What Separates the Best Host Cities?</h2>
+      <p>The strongest cities do not just perform well in one area. Vancouver combines elite walkability, a cooler match-day temperature profile and the best hotel density in the analysis, while Toronto stands out for nearby bar density and Seattle performs strongly across the U.S. set.</p>
+      <p>The data also shows why affordability alone is not enough. Mexico City, Monterrey and Guadalajara are among the most affordable cities for food and beer, but lower stadium-area density and longer journeys prevent them from topping the overall table.</p>
+    </section>
+
+    <section class="an-visual-shell">
+      <div class="an-download-row">
+        <div class="an-tools-left">
+          <button class="an-btn" onclick="downloadVisual('visual-metric-standouts', 'action-network-world-cup-metric-standouts.png')">Download Image</button>
+        </div>
+        <div class="an-download-note" id="status-visual-metric-standouts">High-res 2880px PNG export ready</div>
+      </div>
+
+      <article class="an-visual" id="visual-metric-standouts">
+        <header class="an-top">
+          <div class="an-logo-lockup" aria-label="Action Network">
+            <svg class="an-logo-svg" viewBox="0 0 228 34" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Action Network">
+              <circle class="an-logo-circle" cx="13" cy="17" r="11"></circle>
+              <path class="an-logo-check" d="M8 17.3 l3.4 3.4 l6.8 -7.4"></path>
+              <text class="an-logo-word" x="30" y="22.4">ACTION NETWORK</text>
+            </svg>
+          </div>
+          <div class="an-kicker">Metric Standouts</div>
+          <h2>The Fan Experience Factors Behind the Rankings</h2>
+          <p>Best-in-class host cities by individual fan-experience metric.</p>
+        </header>
+        <div class="an-visual-body">
+          <div class="an-metric-grid">
+            <div class="an-metric-card">
+              <div class="an-metric-icon" data-icon="walking" aria-hidden="true"></div>
+              <h3>Best walkability</h3>
+              <p class="an-metric-main">98</p>
+              <p><strong><span class="an-flag ca" aria-hidden="true"></span>Vancouver</strong> has the highest stadium-area Walkability Score in the index.</p>
+              <div class="an-progress-list">
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag ca" aria-hidden="true"></span>Vancouver</span><strong class="an-progress-value">98</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:98%;"></div></div>
+                </div>
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag us" aria-hidden="true"></span>Seattle</span><strong class="an-progress-value">89</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:89%;"></div></div>
+                </div>
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag mx" aria-hidden="true"></span>Mexico City</span><strong class="an-progress-value">84</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:84%;"></div></div>
+                </div>
+              </div>
+              <p class="an-progress-note">Higher is better.</p>
+            </div>
+
+            <div class="an-metric-card blue">
+              <div class="an-metric-icon" data-icon="stopwatch" aria-hidden="true"></div>
+              <h3>Fastest stadium journey</h3>
+              <p class="an-metric-main">27m</p>
+              <p><strong><span class="an-flag us" aria-hidden="true"></span>Atlanta</strong> has the shortest listed city-center-to-stadium transit journey.</p>
+              <div class="an-progress-list">
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag us" aria-hidden="true"></span>Atlanta</span><strong class="an-progress-value">27 min</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:100%;"></div></div>
+                </div>
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag ca" aria-hidden="true"></span>Vancouver</span><strong class="an-progress-value">36 min</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:75%;"></div></div>
+                </div>
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag us" aria-hidden="true"></span>Seattle</span><strong class="an-progress-value">45 min</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:60%;"></div></div>
+                </div>
+              </div>
+              <p class="an-progress-note">Shorter is better, so the quickest journey gets the longest bar.</p>
+            </div>
+
+            <div class="an-metric-card gold">
+              <div class="an-metric-icon" data-icon="beer" aria-hidden="true"></div>
+              <h3>Best fan-social scene</h3>
+              <p class="an-metric-main">19.98</p>
+              <p><strong><span class="an-flag ca" aria-hidden="true"></span>Toronto</strong> has the highest nearby bar density within the stadium-area measure.</p>
+              <div class="an-progress-list">
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag ca" aria-hidden="true"></span>Toronto</span><strong class="an-progress-value">19.98</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:100%;"></div></div>
+                </div>
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag us" aria-hidden="true"></span>Seattle</span><strong class="an-progress-value">13.37</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:67%;"></div></div>
+                </div>
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag ca" aria-hidden="true"></span>Vancouver</span><strong class="an-progress-value">12.77</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:64%;"></div></div>
+                </div>
+              </div>
+              <p class="an-progress-note">Higher is better. Density is shown as places per sq. mi.</p>
+            </div>
+
+            <div class="an-metric-card red">
+              <div class="an-metric-icon" data-icon="coin" aria-hidden="true"></div>
+              <h3>Lowest beer price</h3>
+              <p class="an-metric-main">$2.90</p>
+              <p><strong><span class="an-flag mx" aria-hidden="true"></span>Monterrey and Guadalajara</strong> have the lowest average beer price in the data.</p>
+              <div class="an-progress-list">
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag mx" aria-hidden="true"></span>Monterrey</span><strong class="an-progress-value">$2.90</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:100%;"></div></div>
+                </div>
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag mx" aria-hidden="true"></span>Guadalajara</span><strong class="an-progress-value">$2.90</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:100%;"></div></div>
+                </div>
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag mx" aria-hidden="true"></span>Mexico City</span><strong class="an-progress-value">$3.37</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:86%;"></div></div>
+                </div>
+              </div>
+              <p class="an-progress-note">Lower is better, so the cheapest price gets the longest bar.</p>
+            </div>
+
+            <div class="an-metric-card purple">
+              <div class="an-metric-icon" data-icon="bed" aria-hidden="true"></div>
+              <h3>Best hotel density</h3>
+              <p class="an-metric-main">3.71</p>
+              <p><strong><span class="an-flag ca" aria-hidden="true"></span>Vancouver</strong> has the highest nearby hotel density within the stadium-area measure.</p>
+              <div class="an-progress-list">
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag ca" aria-hidden="true"></span>Vancouver</span><strong class="an-progress-value">3.71</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:100%;"></div></div>
+                </div>
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag us" aria-hidden="true"></span>Seattle</span><strong class="an-progress-value">2.51</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:68%;"></div></div>
+                </div>
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag us" aria-hidden="true"></span>Los Angeles</span><strong class="an-progress-value">2.02</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:54%;"></div></div>
+                </div>
+              </div>
+              <p class="an-progress-note">Higher is better. Density is shown as places per sq. mi.</p>
+            </div>
+
+            <div class="an-metric-card">
+              <div class="an-metric-icon" data-icon="shield" aria-hidden="true"></div>
+              <h3>Highest safety score</h3>
+              <p class="an-metric-main">59.74</p>
+              <p><strong><span class="an-flag us" aria-hidden="true"></span>Boston</strong> has the highest safety score in the dataset.</p>
+              <div class="an-progress-list">
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag us" aria-hidden="true"></span>Boston</span><strong class="an-progress-value">59.74</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:100%;"></div></div>
+                </div>
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag ca" aria-hidden="true"></span>Vancouver</span><strong class="an-progress-value">57.17</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:96%;"></div></div>
+                </div>
+                <div class="an-progress-row">
+                  <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag ca" aria-hidden="true"></span>Toronto</span><strong class="an-progress-value">56.40</strong></div>
+                  <div class="an-progress-track"><div class="an-progress-fill" style="--w:94%;"></div></div>
+                </div>
+              </div>
+              <p class="an-progress-note">Higher is better.</p>
+            </div>
+          </div>
+        </div>
+        <p class="an-source"><strong>Source:</strong> Action Network analysis. Metric leaders are based on raw stadium-level inputs before weighted index scoring.</p>
+      </article>
+    </section>
+
+    <section class="an-section-copy">
+      <h2>Methodology</h2>
+      <p>The Fan Experience Index ranks all 16 FIFA 2026 host cities using objective, stadium-level data across five categories: accessibility, cost, atmosphere, safety and weather, and accommodation. Each metric is normalized to a 0–10 scale using min-max normalization, then weighted and summed to create a final Fan Experience Score out of 100.</p>
+      <p>Lower-is-better metrics, including journey time, meal cost, beer price and match-day temperature, are inverted so lower raw values improve a city’s score. Stadium-level data is used throughout so the ranking reflects the actual match-day area rather than the broader branded host city.</p>
+      <div class="an-method-grid">
+        <div class="an-method-card"><div class="an-method-icon" data-icon="walking" aria-hidden="true"></div><strong>Accessibility</strong><span>25%</span><p>Journey time and walkability around the stadium.</p></div>
+        <div class="an-method-card"><div class="an-method-icon" data-icon="coin" aria-hidden="true"></div><strong>Cost</strong><span>20%</span><p>Average meal cost and average beer price.</p></div>
+        <div class="an-method-card"><div class="an-method-icon" data-icon="cheers" aria-hidden="true"></div><strong>Atmosphere</strong><span>20%</span><p>Nearby bar density (places per sq. mi.) and football pitches per 100,000 residents.</p></div>
+        <div class="an-method-card"><div class="an-method-icon" data-icon="shieldSun" aria-hidden="true"></div><strong>Safety & Weather</strong><span>20%</span><p>Safety score and average match-day temperature.</p></div>
+        <div class="an-method-card"><div class="an-method-icon" data-icon="bed" aria-hidden="true"></div><strong>Accommodation</strong><span>15%</span><p>Nearby hotel density, shown as places per sq. mi. within the stadium-area measure.</p></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    function clamp(num, min, max){
+      return Math.min(Math.max(num, min), max);
+    }
+
+    function parseNumeric(value){
+      if(value == null) return 0;
+      return parseFloat(String(value).replace(/[^0-9.]/g, '')) || 0;
+    }
+
+    function getProgressScale(list){
+      const explicitScale = (list.dataset.scale || '').toLowerCase();
+      if(explicitScale === 'lower' || explicitScale === 'higher') return explicitScale;
+
+      const card = list.closest('.an-metric-card');
+      const title = card ? (card.querySelector('h3')?.textContent || '').toLowerCase() : '';
+      if(title.includes('fastest') || title.includes('lowest beer')) return 'lower';
+      return 'higher';
+    }
+
+    function calculateDynamicBars(scope = document){
+      scope.querySelectorAll('.an-bar-chart').forEach(chart => {
+        const rows = Array.from(chart.querySelectorAll('.an-bar-row'));
+        const values = rows.map(row => parseNumeric(row.dataset.value || row.querySelector('.an-score')?.textContent));
+        const maxVal = Math.max(...values, 1);
+
+        rows.forEach((row, index) => {
+          const fill = row.querySelector('.an-fill');
+          if(!fill) return;
+          const pct = (values[index] / maxVal) * 100;
+          fill.dataset.target = clamp(pct, 0, 100).toFixed(1) + '%';
+        });
+      });
+
+      scope.querySelectorAll('.an-progress-list').forEach(list => {
+        const rows = Array.from(list.querySelectorAll('.an-progress-row'));
+        const values = rows.map(row => parseNumeric(row.dataset.value || row.querySelector('.an-progress-value')?.textContent));
+        if(!values.length) return;
+
+        const scale = getProgressScale(list);
+        const maxVal = Math.max(...values, 1);
+        const positiveValues = values.filter(value => value > 0);
+        const minVal = positiveValues.length ? Math.min(...positiveValues) : 1;
+
+        rows.forEach((row, index) => {
+          const fill = row.querySelector('.an-progress-fill');
+          if(!fill) return;
+
+          let pct;
+          if(scale === 'lower'){
+            pct = values[index] > 0 ? (minVal / values[index]) * 100 : 0;
+          } else {
+            pct = (values[index] / maxVal) * 100;
+          }
+
+          fill.dataset.target = clamp(pct, 0, 100).toFixed(1) + '%';
+        });
+      });
+    }
+
+    function resetBars(scope = document){
+      scope.querySelectorAll('.an-fill, .an-progress-fill').forEach(bar => {
+        bar.style.width = '0%';
+      });
+    }
+
+    function setBarsReady(scope = document){
+      calculateDynamicBars(scope);
+      scope.querySelectorAll('.an-fill, .an-progress-fill').forEach(bar => {
+        bar.style.width = bar.dataset.target || '0%';
+      });
+    }
+
+    function animateBars(scope = document){
+      calculateDynamicBars(scope);
+      const bars = scope.querySelectorAll('.an-fill, .an-progress-fill');
+      bars.forEach(bar => { bar.style.width = '0%'; });
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          bars.forEach(bar => {
+            bar.style.width = bar.dataset.target || '0%';
+          });
+        }, 90);
+      });
+    }
+
+    function setupScrollTriggeredBars(){
+      const animatedBlocks = document.querySelectorAll('.an-visual');
+
+      if(!('IntersectionObserver' in window)){
+        animatedBlocks.forEach(block => animateBars(block));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const block = entry.target;
+
+          if(entry.isIntersecting){
+            animateBars(block);
+          } else {
+            resetBars(block);
+          }
+        });
+      }, {
+        root:null,
+        threshold:0.22,
+        rootMargin:'0px 0px -8% 0px'
+      });
+
+      animatedBlocks.forEach(block => observer.observe(block));
+    }
+
+    const AN_EXPORT_LAYOUT_WIDTH = 720;
+    const AN_EXPORT_SCALE = 4;
+
+    function getExportWidth(target){
+      return AN_EXPORT_LAYOUT_WIDTH;
+    }
+
+    function prepareCloneForExport(source, exportWidth){
+      const clone = source.cloneNode(true);
+      clone.classList.add('is-exporting');
+      clone.style.width = exportWidth + 'px';
+      clone.style.maxWidth = 'none';
+      clone.style.position = 'fixed';
+      clone.style.left = '-100000px';
+      clone.style.top = '0';
+      clone.style.zIndex = '-1';
+      clone.style.opacity = '1';
+      clone.style.pointerEvents = 'none';
+      clone.style.background = '#ffffff';
+
+      clone.querySelectorAll('.an-chart-scroll, .an-table-scroll').forEach(node => {
+        node.style.overflowX = 'auto';
+        node.style.overflowY = 'hidden';
+        node.style.width = '100%';
+      });
+
+      clone.querySelectorAll('.an-tab-panel').forEach(panel => {
+        if(panel.classList.contains('active')){
+          panel.style.display = 'block';
+        } else {
+          panel.style.display = 'none';
+        }
+      });
+
+      clone.querySelectorAll('.an-tab-btn').forEach(button => {
+        button.disabled = true;
+      });
+
+      return clone;
+    }
+
+    async function waitForImages(scope){
+      const images = Array.from(scope.querySelectorAll('img'));
+      await Promise.all(images.map(img => {
+        if(img.complete && img.naturalWidth > 0) return Promise.resolve();
+        return new Promise(resolve => {
+          img.onload = resolve;
+          img.onerror = resolve;
+        });
+      }));
+    }
+
+    async function downloadVisual(elementId, filename){
+      const target = document.getElementById(elementId);
+      const status = document.getElementById('status-' + elementId);
+      if(!target) return;
+
+      const oldStatus = status ? status.textContent : '';
+      if(status) status.textContent = 'Rendering high-res 2880px PNG...';
+
+      let clone = null;
+
+      try{
+        if(document.fonts && document.fonts.ready){ await document.fonts.ready; }
+        await waitForImages(target);
+
+        setBarsReady(target);
+
+        const exportWidth = getExportWidth(target);
+        clone = prepareCloneForExport(target, exportWidth);
+        document.body.appendChild(clone);
+
+        injectFlags(clone);
+        injectIcons(clone);
+        applyScoreHeatmap(clone);
+        await waitForImages(clone);
+        setBarsReady(clone);
+
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+        const exportHeight = clone.scrollHeight;
+
+        const canvas = await html2canvas(clone, {
+          backgroundColor:'#ffffff',
+          scale:AN_EXPORT_SCALE,
+          useCORS:true,
+          allowTaint:false,
+          logging:false,
+          width:exportWidth,
+          height:exportHeight,
+          windowWidth:exportWidth,
+          windowHeight:exportHeight,
+          scrollX:0,
+          scrollY:0,
+          foreignObjectRendering:false,
+          imageTimeout:0,
+          letterRendering:true
+        });
+
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = canvas.toDataURL('image/png', 1.0);
+        link.click();
+
+        if(status) status.textContent = 'High-res 2880px PNG downloaded';
+      } catch(err){
+        console.error(err);
+        if(status) status.textContent = 'Download failed — please try again';
+      } finally {
+        if(clone && clone.parentNode){
+          clone.parentNode.removeChild(clone);
+        }
+        setBarsReady(target);
+      }
+
+      setTimeout(() => {
+        if(status) status.textContent = oldStatus || 'High-res 2880px PNG export ready';
+      }, 3000);
+    }
+
+    async function downloadActiveTab(wrapperId, filename){
+      await downloadVisual(wrapperId, filename);
+    }
+
+    function setupTabs(){
+      document.querySelectorAll('.an-tab-nav').forEach(tabNav => {
+        const buttons = tabNav.querySelectorAll('.an-tab-btn');
+        const shell = tabNav.closest('.an-tab-shell');
+        if(!shell) return;
+
+        buttons.forEach(button => {
+          button.addEventListener('click', () => {
+            const targetId = button.dataset.tabTarget;
+            if(!targetId) return;
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            shell.querySelectorAll('.an-tab-panel').forEach(panel => panel.classList.remove('active'));
+
+            button.classList.add('active');
+            const targetPanel = shell.querySelector('#' + targetId);
+            if(targetPanel) targetPanel.classList.add('active');
+
+            animateBars(shell);
+          });
+        });
+      });
+    }
+
+    function cleanCellText(text){
+      return text.replace(/[$,]/g, '').trim();
+    }
+
+    function setupSearch(){
+      document.querySelectorAll('.an-search').forEach(input => {
+        input.addEventListener('input', () => {
+          const table = document.getElementById(input.dataset.table);
+          const term = input.value.toLowerCase().trim();
+          if(!table) return;
+          table.querySelectorAll('tbody tr').forEach(row => {
+            row.style.display = row.textContent.toLowerCase().includes(term) ? '' : 'none';
+          });
+        });
+      });
+    }
+
+    function setupSort(){
+      document.querySelectorAll('.an-data-table').forEach(table => {
+        table.querySelectorAll('th').forEach((th, index) => {
+          th.addEventListener('click', () => {
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            const type = th.dataset.type || 'text';
+            const current = th.dataset.sortDir === 'asc' ? 'desc' : 'asc';
+            table.querySelectorAll('th').forEach(header => header.dataset.sortDir = '');
+            th.dataset.sortDir = current;
+
+            rows.sort((a, b) => {
+              const aText = cleanCellText(a.children[index]?.innerText || '');
+              const bText = cleanCellText(b.children[index]?.innerText || '');
+              let result;
+              if(type === 'number'){
+                result = (parseFloat(aText) || 0) - (parseFloat(bText) || 0);
+              } else {
+                result = aText.localeCompare(bText);
+              }
+              return current === 'asc' ? result : -result;
+            });
+
+            rows.forEach(row => tbody.appendChild(row));
+          });
+        });
+      });
+    }
+
+    function normalizeCsvText(value){
+      let text = String(value || '').trim();
+      text = text.split(String.fromCharCode(10)).join(' ');
+      text = text.split(String.fromCharCode(13)).join(' ');
+      text = text.split(String.fromCharCode(9)).join(' ');
+      while(text.includes('  ')) text = text.split('  ').join(' ');
+      return text.replace(/"/g, '""');
+    }
+
+    function downloadCSV(tableId, filename){
+      const table = document.getElementById(tableId);
+      if(!table) return;
+      const rows = Array.from(table.querySelectorAll('tr')).map(row => {
+        return Array.from(row.children).map(cell => {
+          return '"' + normalizeCsvText(cell.innerText) + '"';
+        }).join(',');
+      }).join(String.fromCharCode(10));
+      const blob = new Blob([rows], { type:'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    /* FLAG SVG INJECTION
+       html2canvas cannot reliably render SVG inside CSS background-image (data URL),
+       but it renders inline <svg> elements perfectly. We inject the SVG markup into
+       every .an-flag span at page load AND on the export clone so the downloaded PNG
+       contains the same crisp vector flags as the on-page render. The CSS background
+       remains as a graceful fallback if JS is disabled. */
+    const FLAG_SVG = {
+      ca: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40" preserveAspectRatio="none" width="100%" height="100%" style="display:block;"><rect width="60" height="40" fill="#ffffff"/><rect width="15" height="40" fill="#d52b1e"/><rect x="45" width="15" height="40" fill="#d52b1e"/><path d="M30 8.5 L31.4 12 L34.5 11.2 L33.4 14.2 L37.5 15.4 L35 17.1 L38 19.4 L34.2 19.7 L35.4 22.5 L31.7 21.7 L31.6 24.6 L30.3 23.6 L30 27.5 L29.7 23.6 L28.4 24.6 L28.3 21.7 L24.6 22.5 L25.8 19.7 L22 19.4 L25 17.1 L22.5 15.4 L26.6 14.2 L25.5 11.2 L28.6 12 Z" fill="#d52b1e"/></svg>',
+      mx: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40" preserveAspectRatio="none" width="100%" height="100%" style="display:block;"><rect width="20" height="40" fill="#006847"/><rect x="20" width="20" height="40" fill="#ffffff"/><rect x="40" width="20" height="40" fill="#ce1126"/></svg>',
+      us: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40" preserveAspectRatio="none" width="100%" height="100%" style="display:block;"><rect width="60" height="40" fill="#bf0a30"/><rect y="3.077" width="60" height="3.077" fill="#ffffff"/><rect y="9.231" width="60" height="3.077" fill="#ffffff"/><rect y="15.385" width="60" height="3.077" fill="#ffffff"/><rect y="21.538" width="60" height="3.077" fill="#ffffff"/><rect y="27.692" width="60" height="3.077" fill="#ffffff"/><rect y="33.846" width="60" height="3.077" fill="#ffffff"/><rect width="24" height="21.538" fill="#002868"/></svg>'
+    };
+
+    function injectFlags(scope){
+      const root = scope || document;
+      root.querySelectorAll('.an-flag').forEach(el => {
+        if(el.querySelector('svg')) return; // already injected
+        let code = null;
+        if(el.classList.contains('ca')) code = 'ca';
+        else if(el.classList.contains('mx')) code = 'mx';
+        else if(el.classList.contains('us')) code = 'us';
+        if(code && FLAG_SVG[code]){
+          el.innerHTML = FLAG_SVG[code];
+          // background-image is hidden by the inline svg sitting on top, but we
+          // also clear it to keep the DOM tidy and avoid double-paint in the export
+          el.style.backgroundImage = 'none';
+        }
+      });
+    }
+
+    /* SLEEK AN-BRANDED ICONS
+       Inline SVG line icons for the metric standouts and methodology cards.
+       Uses the same vector-injection approach as the flags so artwork stays
+       razor-sharp at any zoom and renders perfectly in the 4K html2canvas export.
+       Icons take their color from `currentColor`, set by the badge's CSS theme. */
+    const ICON_SVG = {
+      // Walking person — Best Walkability + Accessibility methodology
+      walking: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="4" r="2"/><path d="M8 21l3.5-6-1.5-4 3-2 1.5 3 3 1"/><path d="M10 11.5l-3 1L5.5 18"/></svg>',
+
+      // Stopwatch — Fastest Stadium Journey
+      stopwatch: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4"/><path d="M12 2v3"/><circle cx="12" cy="14" r="7.5"/><path d="M12 10v4l3 2"/><path d="M18.8 6.4l1.2-1.2"/></svg>',
+
+      // Single beer mug with foam — Best Fan-Social Scene
+      beer: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9c-.4-2 1-3.6 3-3 .9.3 1.2.5 2.5.5s1.6-.2 2.5-.5c2-.6 3.4 1 3 3"/><path d="M6 9h12v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9z"/><path d="M18 12h2.2a1.8 1.8 0 0 1 1.8 1.8v3.4a1.8 1.8 0 0 1-1.8 1.8H18"/><path d="M9.5 13v6"/><path d="M14.5 13v6"/></svg>',
+
+      // Dollar coin — Lowest Beer Price + Cost methodology
+      coin: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 6.5v11"/><path d="M15 9.5c0-1.3-1.3-2.1-3-2.1s-3 .8-3 2.1c0 1.2 1.3 1.8 3 2.1s3 1 3 2.2-1.3 2.1-3 2.1-3-.8-3-2.1"/></svg>',
+
+      // Bed — Best Hotel Density + Accommodation methodology
+      bed: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9v11"/><path d="M21 14v6"/><path d="M3 14h18"/><path d="M3 20h18"/><path d="M9 12V9.5A1.5 1.5 0 0 1 10.5 8h6A1.5 1.5 0 0 1 18 9.5V12"/><circle cx="6.5" cy="11" r="1.8"/></svg>',
+
+      // Shield with check — Highest Safety Score
+      shield: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3z"/><path d="M8.5 12l2.5 2.5L15.5 10"/></svg>',
+
+      // Clinking beer steins — Atmosphere methodology (distinct from single beer)
+      cheers: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 7.2l1-2 5 1.6L8.2 11.5L4.2 7.2z"/><path d="M8.2 11.5l-2.6 6.3 3.2 1.4"/><path d="M19.8 7.2l-1-2-5 1.6 2 4.7 4-4.3z"/><path d="M15.8 11.5l2.6 6.3-3.2 1.4"/><path d="M10.4 5.5h3.2"/><path d="M11 3.2v1.8"/><path d="M13 3.2v1.8"/></svg>',
+
+      // Shield + sun core — Safety & Weather methodology
+      shieldSun: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3z"/><circle cx="12" cy="11.5" r="2.4"/><path d="M12 6.7v1.4"/><path d="M12 14.9v1.4"/><path d="M7.6 11.5h1.4"/><path d="M15 11.5h1.4"/><path d="M8.9 8.4l1 1"/><path d="M14.1 13.6l1 1"/></svg>'
+    };
+
+    function injectIcons(scope){
+      const root = scope || document;
+      root.querySelectorAll('[data-icon]').forEach(el => {
+        if(el.querySelector('svg')) return; // already injected
+        const key = el.getAttribute('data-icon');
+        if(key && ICON_SVG[key]){
+          el.innerHTML = ICON_SVG[key];
+        }
+      });
+    }
+
+    /* FAN EXPERIENCE SCORE HEAT MAP
+       Colors each Fan Experience Score cell on a red → amber → green scale based
+       on its position between the column's min and max. The color follows the
+       VALUE, not the row position, so it stays correct after sorting or filtering.
+       The same logic is re-applied to the clone before html2canvas capture so the
+       4K download shows identical heat colors to the on-page table. */
+    function heatColorFor(normalized){
+      // Interpolate across 5 stops: red -> orange -> amber -> light green -> green
+      const t = Math.max(0, Math.min(1, normalized));
+      const stops = [
+        { p:0.00, h:2,   s:70, l:84 }, // low — soft red
+        { p:0.30, h:28,  s:86, l:84 }, // orange
+        { p:0.55, h:48,  s:90, l:83 }, // amber
+        { p:0.80, h:95,  s:55, l:80 }, // light green
+        { p:1.00, h:148, s:55, l:78 }  // high — fresh green
+      ];
+      let a = stops[0], b = stops[stops.length - 1];
+      for(let i = 0; i < stops.length - 1; i++){
+        if(t >= stops[i].p && t <= stops[i+1].p){
+          a = stops[i]; b = stops[i+1]; break;
+        }
+      }
+      const span = (b.p - a.p) || 1;
+      const local = (t - a.p) / span;
+      const h = a.h + (b.h - a.h) * local;
+      const s = a.s + (b.s - a.s) * local;
+      const l = a.l + (b.l - a.l) * local;
+      // Accent (left edge) is the same hue but more saturated and a touch darker
+      const accent = 'hsl(' + h.toFixed(1) + ', ' + Math.min(s + 25, 95).toFixed(1) + '%, ' + Math.max(l - 18, 30).toFixed(1) + '%)';
+      const bg = 'hsl(' + h.toFixed(1) + ', ' + s.toFixed(1) + '%, ' + l.toFixed(1) + '%)';
+      return { bg, accent };
+    }
+
+    function applyScoreHeatmap(scope){
+      const root = scope || document;
+      const tables = root.querySelectorAll('table.an-data-table');
+      tables.forEach(table => {
+        const headerCells = Array.from(table.querySelectorAll('thead th'));
+        // Find the Fan Experience Score column
+        const scoreColIndex = headerCells.findIndex(th => /fan experience/i.test(th.textContent));
+        if(scoreColIndex < 0) return;
+
+        const rows = Array.from(table.querySelectorAll('tbody tr'));
+        const cells = rows.map(row => row.children[scoreColIndex]).filter(Boolean);
+        const values = cells.map(cell => parseFloat((cell.textContent || '').replace(/[^0-9.\-]/g, '')));
+        const valid = values.filter(v => !isNaN(v));
+        if(valid.length === 0) return;
+        const min = Math.min(...valid);
+        const max = Math.max(...valid);
+        const range = (max - min) || 1;
+
+        cells.forEach((cell, i) => {
+          const value = values[i];
+          if(isNaN(value)) return;
+          const norm = (value - min) / range;
+          const { bg, accent } = heatColorFor(norm);
+          cell.classList.add('an-heat-cell');
+          cell.style.setProperty('--heat-bg', bg);
+          cell.style.setProperty('--heat-accent', accent);
+          // also set background-color directly as a fallback for renderers
+          // that don't honor CSS custom properties on td (older html2canvas builds)
+          cell.style.backgroundColor = bg;
+        });
+
+        // Populate the matching legend with real min/max values
+        const tableId = table.id;
+        if(tableId){
+          const legend = root.querySelector('.an-heatmap-legend[data-heatmap-for="' + tableId + '"]')
+                       || document.querySelector('.an-heatmap-legend[data-heatmap-for="' + tableId + '"]');
+          if(legend){
+            const minLabel = legend.querySelector('[data-stop="min"]');
+            const maxLabel = legend.querySelector('[data-stop="max"]');
+            if(minLabel) minLabel.textContent = 'Low · ' + min.toFixed(1);
+            if(maxLabel) maxLabel.textContent = max.toFixed(1) + ' · High';
+          }
+        }
+      });
+    }
+
+    setupTabs();
+    setupSearch();
+    setupSort();
+    setupScrollTriggeredBars();
+    injectFlags();
+    injectIcons();
+    applyScoreHeatmap();
+
+    /* SCROLL HINT — show only when the page actually overflows the viewport
+       horizontally (true responsive detection, not a width breakpoint). The hint
+       dismisses on first scroll/touch so it never sits in the way. */
+  </script>
+</body>
+</html>
