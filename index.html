@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2154,6 +2156,51 @@
       min-width:720px !important;
       max-width:720px !important;
       margin:0 !important;
+    }
+
+
+    /* FINAL BOTTOM BREATHING-ROOM FIX
+       Keeps a small clean white cushion under the final Methodology cards,
+       but removes any outer grey/mystery iframe gap. Exports remain controlled
+       by the .an-visual.is-exporting rules above. */
+    html,
+    body{
+      margin-bottom:0 !important;
+      padding-bottom:0 !important;
+      background:#ffffff !important;
+    }
+
+    body::after{
+      content:none !important;
+      display:none !important;
+    }
+
+    main.an-page,
+    .an-page{
+      margin-bottom:0 !important;
+      padding-bottom:0 !important;
+      background:#ffffff !important;
+    }
+
+    .an-page > *:last-child{
+      margin-bottom:0 !important;
+    }
+
+    /* The final Methodology card should end with a small white cushion only. */
+    .an-page > .an-section-copy:last-child{
+      margin-bottom:0 !important;
+      padding-bottom:14px !important;
+      background:#ffffff !important;
+    }
+
+    .an-page > .an-section-copy:last-child .an-method-grid{
+      margin-bottom:0 !important;
+      padding-bottom:0 !important;
+    }
+
+    .an-page > .an-visual-shell:last-child{
+      margin-bottom:0 !important;
+      padding-bottom:0 !important;
     }
 
     /* Note: layout is designed for 720px wide — Action Network's content width.
