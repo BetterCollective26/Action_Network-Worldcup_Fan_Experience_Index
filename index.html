@@ -1884,6 +1884,192 @@
       min-width:0 !important;
     }
 
+
+
+    /* ZOOM-STABLE DESKTOP OVERRIDE
+       Desktop browser zoom can make viewport-width media queries behave like a
+       narrow screen inside iframes. These overrides keep the embedded layout at
+       the same 720px composition on desktop/laptop devices, while the existing
+       responsive mobile rules still apply on touch phones. PNG exports are not
+       changed because .is-exporting already forces the 720px export layout. */
+    @media (hover:hover) and (pointer:fine){
+      html,
+      body{
+        width:720px !important;
+        min-width:720px !important;
+        max-width:720px !important;
+        margin:0 !important;
+        padding:0 !important;
+        overflow-x:hidden !important;
+        background:#ffffff !important;
+      }
+
+      .an-page{
+        width:720px !important;
+        min-width:720px !important;
+        max-width:720px !important;
+        margin:0 !important;
+        padding:0 !important;
+        background:#ffffff !important;
+      }
+
+      .an-section-copy,
+      .an-visual-shell,
+      .an-visual{
+        width:720px !important;
+        max-width:720px !important;
+        margin-left:0 !important;
+        margin-right:0 !important;
+      }
+
+      .an-kf-section{
+        padding:18px 20px 20px !important;
+      }
+
+      .an-kf-card{
+        grid-template-columns:46px 1fr auto !important;
+        gap:14px !important;
+        padding:16px 16px 16px 14px !important;
+      }
+
+      .an-kf-stat{
+        grid-column:auto !important;
+        justify-self:auto !important;
+        margin-top:0 !important;
+      }
+
+      .an-download-row,
+      .an-chart-head,
+      .an-tab-topbar,
+      .an-panel-tools,
+      .an-table-tools{
+        flex-direction:row !important;
+        align-items:center !important;
+      }
+
+      .an-chart-head,
+      .an-tab-topbar{
+        align-items:flex-start !important;
+      }
+
+      .an-top{
+        padding:22px 180px 20px 22px !important;
+        min-height:108px !important;
+      }
+
+      .an-logo-lockup{
+        position:absolute !important;
+        top:18px !important;
+        right:22px !important;
+        display:block !important;
+        width:160px !important;
+        height:24px !important;
+        margin:0 !important;
+      }
+
+      .an-logo-svg{
+        width:160px !important;
+        height:24px !important;
+      }
+
+      .an-visual-body{
+        padding:18px !important;
+      }
+
+      .an-snapshot-grid,
+      .an-metric-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+      }
+
+      .an-method-grid{
+        grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
+      }
+
+      .an-snapshot-card,
+      .an-metric-card,
+      .an-method-card{
+        min-width:0 !important;
+      }
+
+      .an-card-label{
+        max-width:100% !important;
+      }
+
+      .an-tab-nav{
+        overflow-x:visible !important;
+        flex-wrap:wrap !important;
+      }
+
+      .an-tab-btn{
+        flex:initial !important;
+      }
+
+      .an-bar-chart{
+        min-width:0 !important;
+      }
+
+      .an-data-table{
+        min-width:900px !important;
+      }
+
+      .an-data-table.compact{
+        min-width:780px !important;
+      }
+
+      .an-chart-scroll,
+      .an-table-scroll{
+        overflow-x:auto !important;
+        overflow-y:hidden !important;
+      }
+    }
+
+
+    /* FINAL DESKTOP CENTERING FIX
+       Keeps the 720px composition centred inside wider iframe/viewports,
+       including browser zoom-out, without changing mobile responsive behaviour
+       or the fixed 720px × 4 PNG export. */
+    @media (hover:hover) and (pointer:fine){
+      html{
+        width:100% !important;
+        min-width:720px !important;
+        max-width:none !important;
+        margin:0 !important;
+        padding:0 !important;
+        overflow-x:auto !important;
+        background:#ffffff !important;
+      }
+
+      body{
+        width:100% !important;
+        min-width:720px !important;
+        max-width:none !important;
+        margin:0 !important;
+        padding:0 !important;
+        overflow-x:auto !important;
+        overflow-y:visible !important;
+        background:#ffffff !important;
+      }
+
+      .an-page{
+        width:720px !important;
+        min-width:720px !important;
+        max-width:720px !important;
+        margin:0 auto !important;
+        padding:0 !important;
+        background:#ffffff !important;
+      }
+
+      .an-section-copy,
+      .an-visual-shell,
+      .an-visual{
+        width:720px !important;
+        min-width:0 !important;
+        max-width:720px !important;
+        margin-left:auto !important;
+        margin-right:auto !important;
+      }
+    }
+
     /* Note: layout is designed for 720px wide — Action Network's content width.
        On narrow viewports the page scrolls horizontally using slim native
        AN-green scrollbars (both vertical and horizontal). */
