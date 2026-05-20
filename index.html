@@ -1693,6 +1693,197 @@
       }
     }
 
+
+
+    /* FINAL MOBILE EMBED FIX — responsive inside the iframe.
+       This removes clipping/bleeding on mobile by letting the HTML fit the
+       iframe viewport, while tables/charts remain horizontally swipeable.
+       Export rules below force PNG downloads back to the original 720px layout. */
+    html,
+    body{
+      width:100% !important;
+      min-width:0 !important;
+      max-width:none !important;
+      margin:0 !important;
+      padding:0 !important;
+      background:#ffffff !important;
+      overflow-x:hidden !important;
+    }
+
+    body{
+      overflow-y:visible !important;
+    }
+
+    .an-page{
+      width:100% !important;
+      min-width:0 !important;
+      max-width:720px !important;
+      margin:0 auto !important;
+      padding:0 !important;
+      background:#ffffff !important;
+    }
+
+    .an-section-copy,
+    .an-visual-shell,
+    .an-visual{
+      width:100% !important;
+      max-width:720px !important;
+      margin-left:0 !important;
+      margin-right:0 !important;
+    }
+
+    .an-chart-scroll,
+    .an-table-scroll{
+      overflow-x:auto !important;
+      overflow-y:hidden !important;
+      -webkit-overflow-scrolling:touch;
+      touch-action:pan-x pan-y;
+    }
+
+    @media (max-width:720px){
+      .an-page,
+      .an-section-copy,
+      .an-visual-shell,
+      .an-visual{
+        max-width:100% !important;
+      }
+
+      .an-kf-section{
+        padding:14px !important;
+      }
+
+      .an-kf-card{
+        grid-template-columns:42px minmax(0,1fr) !important;
+        gap:12px !important;
+        padding:14px !important;
+      }
+
+      .an-kf-stat{
+        grid-column:2 !important;
+        justify-self:start !important;
+        margin-top:2px !important;
+      }
+
+      .an-download-row,
+      .an-chart-head,
+      .an-tab-topbar,
+      .an-panel-tools,
+      .an-table-tools{
+        flex-direction:column !important;
+        align-items:flex-start !important;
+      }
+
+      .an-top{
+        padding:20px 18px 18px !important;
+      }
+
+      .an-logo-lockup{
+        position:static !important;
+        margin:0 0 14px auto !important;
+        width:150px !important;
+        height:23px !important;
+      }
+
+      .an-logo-svg{
+        width:150px !important;
+        height:23px !important;
+      }
+
+      .an-visual-body{
+        padding:14px !important;
+      }
+
+      .an-snapshot-grid,
+      .an-metric-grid,
+      .an-method-grid{
+        grid-template-columns:1fr !important;
+      }
+
+      .an-snapshot-card,
+      .an-metric-card,
+      .an-method-card{
+        min-width:0 !important;
+      }
+
+      .an-card-top{
+        align-items:flex-start !important;
+      }
+
+      .an-card-label{
+        max-width:calc(100% - 82px) !important;
+      }
+
+      .an-tab-nav{
+        overflow-x:auto !important;
+        flex-wrap:nowrap !important;
+        -webkit-overflow-scrolling:touch;
+      }
+
+      .an-tab-btn{
+        flex:0 0 auto !important;
+      }
+
+      .an-bar-chart{
+        min-width:720px !important;
+      }
+
+      .an-data-table{
+        min-width:900px !important;
+      }
+
+      .an-data-table.compact{
+        min-width:780px !important;
+      }
+
+      .an-heatmap-legend{
+        overflow-x:auto !important;
+      }
+    }
+
+    /* Preserve original 720px desktop composition for PNG exports even on mobile. */
+    .an-visual.is-exporting{
+      width:720px !important;
+      min-width:720px !important;
+      max-width:720px !important;
+      margin:0 !important;
+    }
+
+    .an-visual.is-exporting .an-top{
+      padding:22px 180px 20px 22px !important;
+      min-height:108px !important;
+    }
+
+    .an-visual.is-exporting .an-logo-lockup{
+      position:absolute !important;
+      top:18px !important;
+      right:22px !important;
+      width:160px !important;
+      height:24px !important;
+      margin:0 !important;
+    }
+
+    .an-visual.is-exporting .an-logo-svg{
+      width:160px !important;
+      height:24px !important;
+    }
+
+    .an-visual.is-exporting .an-visual-body{
+      padding:18px !important;
+    }
+
+    .an-visual.is-exporting .an-snapshot-grid,
+    .an-visual.is-exporting .an-metric-grid{
+      grid-template-columns:repeat(2, minmax(0,1fr)) !important;
+    }
+
+    .an-visual.is-exporting .an-method-grid{
+      grid-template-columns:repeat(3, minmax(0,1fr)) !important;
+    }
+
+    .an-visual.is-exporting .an-bar-chart{
+      min-width:0 !important;
+    }
+
     /* Note: layout is designed for 720px wide — Action Network's content width.
        On narrow viewports the page scrolls horizontally using slim native
        AN-green scrollbars (both vertical and horizontal). */
