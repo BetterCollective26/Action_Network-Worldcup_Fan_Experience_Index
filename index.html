@@ -1,6 +1,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -4379,6 +4380,16 @@
             <li><strong>Stadium-area measure:</strong> focuses on the matchday base, not the wider city.</li>
           </ul>
         </div>
+        <div class="an-method-card">
+          <div class="an-method-icon" data-icon="calculator" aria-hidden="true"></div>
+          <strong>Final Index Score</strong><span>0–100</span>
+          <p>Combines the weighted category scores into one overall fan experience rating.</p>
+          <ul class="an-method-points">
+            <li><strong>Normalize:</strong> each raw metric is converted to a 0–10 score.</li>
+            <li><strong>Invert:</strong> lower-is-better metrics are flipped so better values score higher.</li>
+            <li><strong>Weight & sum:</strong> categories are combined using the listed weights and scaled to 100.</li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -4877,6 +4888,9 @@
 
       // Bed — Best Hotel Density + Accommodation methodology
       bed: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9v11"/><path d="M21 14v6"/><path d="M3 14h18"/><path d="M3 20h18"/><path d="M9 12V9.5A1.5 1.5 0 0 1 10.5 8h6A1.5 1.5 0 0 1 18 9.5V12"/><circle cx="6.5" cy="11" r="1.8"/></svg>',
+
+      // Calculator — Final Index Score methodology
+      calculator: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8"/><path d="M8 11h2"/><path d="M12 11h2"/><path d="M16 11h.01"/><path d="M8 15h2"/><path d="M12 15h2"/><path d="M16 15h.01"/></svg>',
 
       // Shield with check — Highest Safety Score
       shield: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3z"/><path d="M8.5 12l2.5 2.5L15.5 10"/></svg>',
