@@ -1,6 +1,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3513,7 +3514,36 @@
       display:none !important;
     }
 
-</style>
+
+
+    /* FINAL TRUE BOTTOM-GAP TRIM
+       Removes the last internal cushion from the HTML itself. The remaining
+       visible gap, if any, is the WordPress iframe height being taller than the
+       actual rendered page, not padding inside this document. */
+    html,
+    body,
+    main.an-page{
+      margin-bottom:0 !important;
+      padding-bottom:0 !important;
+      min-height:0 !important;
+      height:auto !important;
+    }
+
+    main.an-page{
+      display:flow-root !important;
+    }
+
+    main.an-page > .an-section-copy:last-child{
+      margin-bottom:0 !important;
+      padding-bottom:0 !important;
+    }
+
+    main.an-page > .an-section-copy:last-child .an-method-grid{
+      margin-bottom:0 !important;
+      padding-bottom:0 !important;
+    }
+
+  </style>
 </head>
 <body>
   <main class="an-page">
@@ -5022,6 +5052,31 @@
           });
         });
       });
+    }
+
+
+
+    function reportNaturalIframeHeight(){
+      const page = document.querySelector('main.an-page');
+      if(!page) return;
+      const height = Math.ceil(page.getBoundingClientRect().height);
+      window.AN_RECOMMENDED_IFRAME_HEIGHT = height;
+      document.documentElement.setAttribute('data-an-natural-height', String(height));
+      if(window.console && console.info){
+        console.info('Action Network widget recommended iframe height:', height);
+      }
+    }
+
+    window.addEventListener('load', () => {
+      reportNaturalIframeHeight();
+      setTimeout(reportNaturalIframeHeight, 250);
+      setTimeout(reportNaturalIframeHeight, 1000);
+    });
+
+    if('ResizeObserver' in window){
+      const anHeightObserver = new ResizeObserver(() => reportNaturalIframeHeight());
+      const anPageForHeight = document.querySelector('main.an-page');
+      if(anPageForHeight) anHeightObserver.observe(anPageForHeight);
     }
 
     setupSectionJumps();
