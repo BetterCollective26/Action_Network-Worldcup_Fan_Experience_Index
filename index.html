@@ -587,7 +587,7 @@
     /* CITY IMAGE CARDS — dark colorised overlay over the city photo.
        Text flips to light; city name gets the bright accent; score badge goes
        semi-transparent. The gradient + city image are set via inline style so
-       each card can use its own tinted overlay colour. */
+       each card can use its own tinted overlay color. */
     .an-snapshot-card.has-img{
       background-color:#0a1e18; /* fallback if image fails */
       background-size:cover;
@@ -1150,7 +1150,7 @@
       text-transform:uppercase;
       text-align:left;
       border-right:1px solid rgba(255,255,255,.08);
-      vertical-align:bottom;
+      vertical-align:middle;
       white-space:normal;
       cursor:pointer;
     }
@@ -1172,6 +1172,72 @@
       color:var(--an-green-bright);
       margin-left:4px;
       font-size:10px;
+    }
+
+    .an-data-table th[data-tooltip]{
+      position:relative;
+    }
+
+    .an-data-table th[data-tooltip]:hover,
+    .an-data-table th[data-tooltip].is-tooltip-active{
+      background:linear-gradient(180deg, #16312a 0%, #10231f 100%);
+      color:#ffffff;
+      box-shadow:inset 0 -4px 0 var(--an-green);
+    }
+
+    .an-data-table th[data-tooltip]:hover .sort-hint,
+    .an-data-table th[data-tooltip].is-tooltip-active .sort-hint{
+      color:#8fffda;
+    }
+
+    .an-floating-tooltip{
+      position:fixed;
+      left:0;
+      top:0;
+      z-index:2147483647;
+      max-width:min(285px, calc(100vw - 20px));
+      padding:10px 12px;
+      background:#101820;
+      color:#eafff6;
+      border:1px solid rgba(0,224,154,.38);
+      border-top:4px solid var(--an-green);
+      font-family:var(--an-serif);
+      font-size:12.8px;
+      line-height:1.38;
+      font-weight:700;
+      letter-spacing:0;
+      text-align:left;
+      box-shadow:0 18px 38px rgba(16,24,32,.28);
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      transform:translateY(6px);
+      transition:opacity .15s ease, transform .15s ease, visibility .15s ease;
+      white-space:normal;
+    }
+
+    .an-floating-tooltip.is-visible{
+      opacity:1;
+      visibility:visible;
+      transform:translateY(0);
+    }
+
+    .an-floating-tooltip:after{
+      content:"";
+      position:absolute;
+      left:var(--arrow-x, 50%);
+      bottom:-7px;
+      transform:translateX(-50%);
+      border-width:7px 7px 0 7px;
+      border-style:solid;
+      border-color:#101820 transparent transparent transparent;
+    }
+
+    .an-floating-tooltip.is-below:after{
+      bottom:auto;
+      top:-7px;
+      border-width:0 7px 7px 7px;
+      border-color:transparent transparent var(--an-green) transparent;
     }
 
     .an-data-table td{
@@ -1436,6 +1502,64 @@
     .an-tab-panel{ display:none; }
     .an-tab-panel.active{ display:block; }
 
+    /* OVERVIEW TABS: key findings + data snapshot in one switchable section */
+    .an-overview-tabs-section{
+      padding:0;
+      border:0;
+      background:transparent;
+    }
+
+    .an-overview-tab-shell{
+      box-shadow:0 10px 24px rgba(16,24,32,.06);
+    }
+
+    .an-overview-tab-shell .an-tab-topbar{
+      background:linear-gradient(90deg, #f7faf8 0%, #ffffff 72%);
+      align-items:flex-start;
+    }
+
+    .an-overview-tab-shell .an-tab-topbar > div{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:0;
+    }
+
+    .an-overview-tab-shell .an-tab-topbar .an-score-badge{
+      background:#ffffff;
+      margin:0;
+    }
+
+    .an-overview-tab-shell .an-tab-topbar h3{
+      margin:0;
+    }
+
+    .an-overview-tab-shell .an-tab-panels{
+      padding:18px;
+    }
+
+    .an-overview-key-panel .an-kf-label{
+      margin-bottom:14px;
+    }
+
+    .an-overview-data-panel .an-visual-shell{
+      margin:0;
+    }
+
+    .an-overview-data-panel .an-download-row{
+      margin:0 0 10px;
+    }
+
+    .an-overview-data-panel .an-visual{
+      box-shadow:none;
+    }
+
+    @media (max-width:720px){
+      .an-overview-tab-shell .an-tab-panels{
+        padding:14px;
+      }
+    }
+
     .an-panel-tools{
       display:flex;
       align-items:center;
@@ -1506,6 +1630,482 @@
       font-size:12.5px;
       line-height:1.4;
       color:#606a70;
+    }
+
+    .an-method-points{
+      list-style:none;
+      margin:10px 0 0;
+      padding:0;
+      display:grid;
+      gap:6px;
+    }
+
+    .an-method-points li{
+      position:relative;
+      padding:7px 9px 7px 12px;
+      border-left:3px solid rgba(0,191,111,.7);
+      background:rgba(0,191,111,.055);
+      color:#4f5960;
+      font-size:12.75px;
+      line-height:1.35;
+    }
+
+    .an-method-points strong{
+      display:inline;
+      font-family:var(--an-serif);
+      font-size:inherit;
+      line-height:inherit;
+      letter-spacing:0;
+      text-transform:none;
+      color:#0f5136;
+      font-weight:800;
+    }
+
+
+
+    /* TOP 5 CITY FOCUS COPY BLOCKS
+       Lightweight editorial add-on below the ranking tables. It does not hook
+       into the download/export scripts, so existing PNG/CSV behavior stays intact. */
+    .an-visual-shell + .an-focus-section{
+      margin-top:-12px;
+    }
+
+    .an-focus-section{
+      position:relative;
+      overflow:visible;
+      background:#ffffff;
+      border-left-width:5px;
+      padding:18px 20px 20px;
+    }
+
+    .an-focus-section:after{
+      content:none;
+    }
+
+    .an-focus-head{
+      position:relative;
+      z-index:1;
+      display:block;
+      margin-bottom:14px;
+      padding-bottom:14px;
+      border-bottom:1px solid var(--an-border);
+    }
+
+    .an-focus-kicker{
+      display:inline-flex;
+      align-items:center;
+      margin:0 0 10px;
+      padding:7px 11px;
+      background:#101820;
+      color:var(--an-green-bright);
+      border:1px solid #101820;
+      font-family:var(--an-display);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.13em;
+      line-height:1;
+      text-transform:uppercase;
+      box-shadow:0 6px 14px rgba(0,0,0,.10);
+    }
+
+    .an-focus-head h2{
+      margin:0 0 8px;
+      font-family:var(--an-display);
+      font-size:clamp(24px, 4vw, 34px);
+      line-height:1.03;
+      font-weight:900;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+      color:#101820;
+    }
+
+    .an-focus-intro{
+      max-width:none;
+      margin:0;
+      color:#5f6973;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .an-focus-grid{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+
+    .an-focus-card{
+      position:relative;
+      grid-column:1 / -1;
+      width:100%;
+      min-height:auto;
+      padding:14px 14px 15px;
+      background:#fff;
+      border:1px solid var(--an-border);
+      border-top:4px solid var(--an-green);
+      box-shadow:0 8px 20px rgba(16,24,32,.045);
+      overflow:hidden;
+    }
+
+    .an-focus-card.is-leader{
+      grid-column:1 / -1;
+      min-height:auto;
+      background:
+        radial-gradient(circle at 96% 8%, rgba(0,224,154,.12), transparent 32%),
+        linear-gradient(135deg, #071628 0%, #0a2e28 100%);
+      border-color:#0a2218;
+      border-top-color:var(--an-green-bright);
+      color:#fff;
+    }
+
+    .an-focus-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-start;
+      gap:12px;
+      margin-bottom:10px;
+    }
+
+    .an-focus-rank{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:38px;
+      height:38px;
+      flex:0 0 auto;
+      background:rgba(0,182,122,.12);
+      border:1px solid rgba(0,182,122,.28);
+      color:#00865b;
+      font-family:var(--an-display);
+      font-size:16px;
+      font-weight:900;
+      line-height:1;
+    }
+
+    .an-focus-card.is-leader .an-focus-rank{
+      background:var(--an-green);
+      border-color:rgba(255,255,255,.22);
+      color:#071628;
+    }
+
+    .an-focus-title{
+      flex:1;
+      min-width:0;
+      display:flex;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:10px 12px;
+    }
+
+    .an-focus-city{
+      display:flex;
+      align-items:center;
+      margin:0;
+      font-family:var(--an-display);
+      font-size:clamp(22px, 3.8vw, 30px);
+      line-height:1;
+      font-weight:900;
+      letter-spacing:.025em;
+      text-transform:uppercase;
+      color:#101820;
+    }
+
+    .an-focus-card.is-leader .an-focus-city{
+      color:#ffffff;
+    }
+
+    .an-focus-score{
+      display:inline-flex;
+      align-items:center;
+      align-self:center;
+      padding:5px 8px;
+      background:rgba(0,182,122,.1);
+      border:1px solid rgba(0,182,122,.28);
+      color:#00865b;
+      font-family:var(--an-display);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.08em;
+      line-height:1;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+
+    .an-focus-card.is-leader .an-focus-score{
+      background:rgba(255,255,255,.1);
+      border-color:rgba(255,255,255,.2);
+      color:#7effd3;
+    }
+
+    .an-focus-metrics{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin:0 0 10px;
+    }
+
+    .an-focus-metric{
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      padding:5px 7px;
+      background:#f7faf8;
+      border:1px solid var(--an-border);
+      color:#374151;
+      font-size:11.5px;
+      line-height:1.1;
+      font-weight:700;
+    }
+
+    .an-focus-metric strong{
+      color:#0f5136;
+      font-family:var(--an-display);
+      font-size:13px;
+      line-height:1;
+      letter-spacing:.04em;
+    }
+
+    .an-focus-card.is-leader .an-focus-metric{
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.16);
+      color:rgba(255,255,255,.78);
+    }
+
+    .an-focus-card.is-leader .an-focus-metric strong{
+      color:#8fffda;
+    }
+
+    .an-focus-card p{
+      margin:0;
+      color:#5f6973;
+      font-size:13.2px;
+      line-height:1.5;
+    }
+
+    .an-focus-card p strong{
+      color:#101820;
+      font-weight:700;
+    }
+
+    .an-focus-card.is-leader p{
+      color:rgba(216,230,226,.88);
+    }
+
+    .an-focus-card.is-leader p strong{
+      color:#ffffff;
+    }
+
+    .an-expert-quote-section{
+      position:relative;
+      padding:20px 24px 22px !important;
+      overflow:hidden;
+      border-left:5px solid var(--an-green);
+      background:#ffffff;
+    }
+
+    .an-expert-quote-section:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at 98% 0%, rgba(0,182,122,.08), transparent 28%);
+      pointer-events:none;
+    }
+
+    .an-expert-quote-label{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      width:max-content;
+      margin:0 0 15px;
+      padding:8px 11px;
+      background:#101820;
+      color:var(--an-green-bright);
+      font-family:var(--an-display);
+      font-size:11px;
+      line-height:1;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+
+    .an-expert-quote-body{
+      position:relative;
+      margin:0;
+      padding:0;
+      color:#18212a;
+      font-size:17.5px;
+      line-height:1.72;
+      font-style:italic;
+      font-weight:700;
+      letter-spacing:.01em;
+    }
+
+    .an-expert-quote-credit{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      width:max-content;
+      max-width:100%;
+      margin:20px 0 0 !important;
+      padding:8px 12px 8px 10px;
+      background:#ecfff8;
+      border:1px solid rgba(0,182,122,.32);
+      border-left:5px solid var(--an-green);
+      color:#007a53 !important;
+      font-family:var(--an-display);
+      font-size:13px !important;
+      line-height:1 !important;
+      font-weight:900;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+      box-shadow:0 8px 20px rgba(0,182,122,.08);
+    }
+
+    .an-expert-quote-credit:before{
+      content:"";
+      width:9px;
+      height:9px;
+      border-radius:999px;
+      background:var(--an-green);
+      box-shadow:0 0 0 4px rgba(0,182,122,.12);
+      flex:0 0 auto;
+    }
+
+    @media (max-width:720px){
+      .an-visual-shell + .an-focus-section{
+        margin-top:-8px;
+      }
+
+      .an-focus-section{
+        padding:14px !important;
+      }
+
+      .an-focus-head{
+        margin-bottom:12px;
+        padding-bottom:12px;
+      }
+
+      .an-focus-intro{
+        max-width:none;
+      }
+
+      .an-focus-grid{
+        grid-template-columns:1fr;
+      }
+
+      .an-focus-card,
+      .an-focus-card.is-leader{
+        grid-column:1 / -1;
+      }
+
+      .an-focus-top{
+        align-items:flex-start;
+      }
+
+      .an-expert-quote-section{
+        padding:17px 16px 18px !important;
+      }
+
+      .an-expert-quote-body{
+        font-size:15.8px;
+        line-height:1.65;
+      }
+
+      .an-expert-quote-credit{
+        font-size:12px !important;
+        line-height:1 !important;
+        padding:8px 10px 8px 9px;
+      }
+    }
+
+
+
+    /* BRANDED SECTION SEPARATORS
+       Lightweight visual breaks between major page sections only.
+       These do not connect to any image/export/download scripts. */
+    .an-section-separator{
+      width:100%;
+      max-width:720px;
+      margin:20px auto 18px;
+      padding:0 14px;
+      background:#ffffff;
+    }
+
+    .an-section-separator-inner{
+      position:relative;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      width:100%;
+      min-height:36px;
+    }
+
+    .an-section-separator-inner:before,
+    .an-section-separator-inner:after{
+      content:"";
+      flex:1 1 auto;
+      height:1px;
+      background:linear-gradient(90deg, transparent 0%, rgba(0,182,122,.42) 100%);
+    }
+
+    .an-section-separator-inner:after{
+      background:linear-gradient(90deg, rgba(0,182,122,.42) 0%, transparent 100%);
+    }
+
+    .an-section-separator-label{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      flex:0 0 auto;
+      padding:8px 12px;
+      background:#101820;
+      border:1px solid rgba(0,224,154,.38);
+      color:#ffffff;
+      box-shadow:0 10px 22px rgba(16,24,32,.10);
+      font-family:var(--an-display);
+      font-size:12px;
+      line-height:1;
+      font-weight:900;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+
+    .an-section-separator-label span{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:24px;
+      height:20px;
+      padding:0 6px;
+      background:var(--an-green);
+      color:#071628;
+      letter-spacing:.04em;
+    }
+
+    @media (max-width:720px){
+      .an-section-separator{
+        margin:16px auto 14px;
+        padding:0 12px;
+      }
+
+      .an-section-separator-inner{
+        gap:8px;
+      }
+
+      .an-section-separator-label{
+        padding:8px 10px;
+        font-size:11px;
+        letter-spacing:.08em;
+      }
+
+      .an-section-separator-label span{
+        min-width:22px;
+        height:19px;
+      }
     }
 
 
@@ -2027,8 +2627,8 @@
 
 
     /* FINAL DESKTOP CENTERING FIX
-       Keeps the 720px composition centred inside wider iframe/viewports,
-       including browser zoom-out, without changing mobile responsive behaviour
+       Keeps the 720px composition centered inside wider iframe/viewports,
+       including browser zoom-out, without changing mobile responsive behavior
        or the fixed 720px × 4 PNG export. */
     @media (hover:hover) and (pointer:fine){
       html{
@@ -2161,7 +2761,7 @@
 
     /* FINAL BOTTOM BREATHING-ROOM FIX
        Keeps a small clean white cushion under the final Methodology cards,
-       but removes any outer grey/mystery iframe gap. Exports remain controlled
+       but removes any outer gray/mystery iframe gap. Exports remain controlled
        by the .an-visual.is-exporting rules above. */
     html,
     body{
@@ -2206,14 +2806,434 @@
     /* Note: layout is designed for 720px wide — Action Network's content width.
        On narrow viewports the page scrolls horizontally using slim native
        AN-green scrollbars (both vertical and horizontal). */
-  </style>
+
+
+    /* FINAL READABILITY BOOST
+       Increases the live widget/asset body text so readers can quickly skim the
+       visuals without zooming. The same rules also apply to high-resolution PNG
+       exports because they use the same rendered HTML clone. */
+    .an-visual{
+      font-size:16px !important;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    .an-top p,
+    .an-chart-head p,
+    .an-tab-topbar p,
+    .an-score-caption,
+    .an-table-note,
+    .an-source{
+      font-size:15px !important;
+      line-height:1.55 !important;
+    }
+
+    .an-card-note,
+    .an-metric-card p,
+    .an-method-card p,
+    .an-method-points li,
+    .an-progress-note{
+      font-size:15px !important;
+      line-height:1.52 !important;
+    }
+
+    .an-card-score,
+    .an-score-badge,
+    .an-tab-btn,
+    .an-btn{
+      font-size:13.5px !important;
+    }
+
+    .an-card-label,
+    .an-kicker,
+    .an-chart-tag{
+      font-size:12.5px !important;
+      letter-spacing:.11em !important;
+    }
+
+    .an-city-label strong{
+      font-size:16.5px !important;
+      line-height:1.08 !important;
+    }
+
+    .an-city-label span{
+      font-size:13px !important;
+      line-height:1.25 !important;
+    }
+
+    .an-data-table th,
+    .an-visual.is-exporting .an-data-table th{
+      font-size:13px !important;
+      line-height:1.2 !important;
+      padding:14px 12px !important;
+      letter-spacing:.075em !important;
+    }
+
+    .an-data-table td,
+    .an-visual.is-exporting .an-data-table td{
+      font-size:14.2px !important;
+      line-height:1.4 !important;
+      padding:12px 11px !important;
+    }
+
+    .an-team-cell strong{
+      font-size:18px !important;
+      line-height:1.05 !important;
+    }
+
+    .an-team-cell span{
+      font-size:13px !important;
+      line-height:1.25 !important;
+    }
+
+    .an-heatmap-legend-title,
+    .an-heatmap-legend-stop{
+      font-size:12.5px !important;
+    }
+
+    .an-rank-cell{
+      font-size:19px !important;
+    }
+
+    .an-progress-city{
+      font-size:14.5px !important;
+      line-height:1.25 !important;
+    }
+
+    .an-progress-value{
+      font-size:16px !important;
+    }
+
+    .an-focus-intro,
+    .an-focus-card p{
+      font-size:15.5px !important;
+      line-height:1.55 !important;
+    }
+
+    .an-focus-metric{
+      font-size:13.5px !important;
+      line-height:1.2 !important;
+      padding:6px 8px !important;
+    }
+
+    .an-focus-metric strong{
+      font-size:15px !important;
+    }
+
+    @media (max-width:720px){
+      .an-top p,
+      .an-chart-head p,
+      .an-tab-topbar p,
+      .an-score-caption,
+      .an-table-note,
+      .an-source,
+      .an-card-note,
+      .an-metric-card p,
+      .an-method-card p,
+      .an-method-points li,
+      .an-progress-note,
+      .an-focus-intro,
+      .an-focus-card p{
+        font-size:15px !important;
+        line-height:1.55 !important;
+      }
+    }
+
+  
+
+    .an-overview-key-panel .an-kf-label{
+      display:none !important;
+    }
+
+  
+
+
+    /* STICKY SECTION JUMP NAV
+       Minimal Action-branded one-line navigation. Pure anchor links, so it
+       does not touch the existing tab, CSV or PNG export scripts. */
+    html{
+      scroll-behavior:smooth;
+    }
+
+    .an-jump-nav{
+      position:sticky;
+      top:0;
+      z-index:999;
+      width:100%;
+      max-width:720px;
+      margin:0 auto;
+      padding:8px 10px;
+      background:rgba(255,255,255,.94);
+      border-bottom:1px solid rgba(0,182,122,.18);
+      box-shadow:0 10px 24px rgba(16,24,32,.08);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+    }
+
+    .an-jump-nav-track{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      width:100%;
+      overflow-x:auto;
+      overflow-y:hidden;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:thin;
+      scrollbar-color:var(--an-green) transparent;
+      white-space:nowrap;
+      padding-bottom:1px;
+    }
+
+    .an-jump-nav-track::-webkit-scrollbar{
+      height:4px;
+    }
+
+    .an-jump-nav-track::-webkit-scrollbar-track{
+      background:transparent;
+    }
+
+    .an-jump-nav-track::-webkit-scrollbar-thumb{
+      background:var(--an-green);
+      border-radius:999px;
+    }
+
+    .an-jump-nav-label{
+      display:inline-flex;
+      align-items:center;
+      flex:0 0 auto;
+      padding:8px 10px;
+      background:#101820;
+      color:var(--an-green-bright);
+      font-family:var(--an-display);
+      font-size:11px;
+      line-height:1;
+      font-weight:900;
+      letter-spacing:.11em;
+      text-transform:uppercase;
+    }
+
+    .an-jump-nav-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      flex:0 0 auto;
+      padding:8px 10px;
+      background:#f7faf8;
+      border:1px solid var(--an-border);
+      color:#101820;
+      font-family:var(--an-display);
+      font-size:11px;
+      line-height:1;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      text-decoration:none;
+      transition:background .16s ease, border-color .16s ease, color .16s ease, transform .16s ease;
+    }
+
+    .an-jump-nav-link:hover,
+    .an-jump-nav-link:focus-visible{
+      background:var(--an-green);
+      border-color:var(--an-green);
+      color:#071628;
+      transform:translateY(-1px);
+      outline:none;
+    }
+
+    .an-jump-target{
+      scroll-margin-top:70px;
+    }
+
+    @media (max-width:720px){
+      .an-jump-nav{
+        padding:7px 8px;
+      }
+
+      .an-jump-nav-track{
+        gap:6px;
+      }
+
+      .an-jump-nav-label,
+      .an-jump-nav-link{
+        padding:8px 9px;
+        font-size:10.5px;
+        letter-spacing:.07em;
+      }
+    }
+
+
+    /* STICKY NAV HARD FIX
+       Keeps the section jump menu locked to the top when the HTML document itself
+       is the scrolling container. This is visual-only and does not touch any
+       existing tab, tooltip, CSV or PNG export logic. */
+    .an-page{
+      overflow:visible !important;
+    }
+
+    .an-jump-nav{
+      position:-webkit-sticky !important;
+      position:sticky !important;
+      top:0 !important;
+      z-index:2147483000 !important;
+      background:rgba(255,255,255,.97) !important;
+      border-top:3px solid var(--an-green) !important;
+      border-bottom:1px solid rgba(0,182,122,.22) !important;
+      box-shadow:0 12px 28px rgba(16,24,32,.12) !important;
+      transform:translateZ(0);
+      will-change:transform;
+    }
+
+    .an-jump-nav-track{
+      overscroll-behavior-x:contain;
+    }
+
+    .an-jump-target{
+      scroll-margin-top:78px !important;
+    }
+
+    /* BACK TO MENU NAV VARIANT
+       The menu stays at the top of the HTML rather than forcing sticky behavior
+       inside a tall iframe. Each major section gets a compact return link. */
+    .an-jump-nav{
+      position:relative !important;
+      top:auto !important;
+      z-index:50 !important;
+      border-top:3px solid var(--an-green) !important;
+      transform:none !important;
+      will-change:auto !important;
+    }
+
+    .an-back-to-menu{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      flex:0 0 auto;
+      padding:7px 10px 7px 8px;
+      background:#ecfff8;
+      border:1px solid rgba(0,182,122,.32);
+      color:#007a53;
+      font-family:var(--an-display);
+      font-size:10.5px;
+      line-height:1;
+      font-weight:900;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+      text-decoration:none;
+      box-shadow:0 8px 18px rgba(0,182,122,.08);
+      transition:background .16s ease, border-color .16s ease, color .16s ease, transform .16s ease, box-shadow .16s ease;
+    }
+
+    .an-back-to-menu span{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:18px;
+      height:18px;
+      background:#101820;
+      color:var(--an-green-bright);
+      font-size:13px;
+      line-height:1;
+      transform:translateY(-1px);
+    }
+
+    .an-back-to-menu:hover,
+    .an-back-to-menu:focus-visible{
+      background:var(--an-green);
+      border-color:var(--an-green);
+      color:#071628;
+      transform:translateY(-1px);
+      box-shadow:0 12px 24px rgba(0,182,122,.16);
+      outline:none;
+    }
+
+    .an-back-to-menu:hover span,
+    .an-back-to-menu:focus-visible span{
+      background:#071628;
+      color:#ffffff;
+    }
+
+    .an-section-separator .an-back-to-menu{
+      margin-left:4px;
+    }
+
+    .an-expert-quote-head{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin:0 0 15px;
+    }
+
+    .an-expert-quote-head .an-expert-quote-label{
+      margin:0 !important;
+    }
+
+    @media (max-width:720px){
+      .an-section-separator-inner{
+        gap:7px;
+      }
+
+      .an-back-to-menu{
+        padding:7px 8px 7px 7px;
+        font-size:10px;
+        letter-spacing:.075em;
+      }
+
+      .an-back-to-menu span{
+        width:17px;
+        height:17px;
+        font-size:12px;
+      }
+
+      .an-expert-quote-head{
+        align-items:flex-start;
+      }
+    }
+
+    /* Final title contrast fix: keep the Data Snapshot title bright and readable
+       in the live widget and high-resolution PNG export. */
+    .an-visual .an-top h2,
+    .an-visual.is-exporting .an-top h2{
+      color:#ffffff !important;
+      opacity:1 !important;
+      text-shadow:0 2px 10px rgba(0,0,0,.36) !important;
+    }
+
+</style>
 </head>
 <body>
   <main class="an-page">
 
-    <section class="an-section-copy an-kf-section">
-      <div class="an-kf-label">Key Findings</div>
 
+    <nav id="section-menu" class="an-jump-nav" aria-label="World Cup Fan Experience Index sections">
+      <div class="an-jump-nav-track">
+        <span class="an-jump-nav-label">Sections</span>
+        <a class="an-jump-nav-link" href="#overview-section">Overview</a>
+        <a class="an-jump-nav-link" href="#expert-quote-section">Expert Quote</a>
+        <a class="an-jump-nav-link" href="#global-ranking-section">Global Ranking</a>
+        <a class="an-jump-nav-link" href="#us-ranking-section">U.S. Ranking</a>
+        <a class="an-jump-nav-link" href="#score-drivers-section">Score Drivers</a>
+        <a class="an-jump-nav-link" href="#methodology-section">Methodology</a>
+      </div>
+    </nav>
+
+    <section id="overview-section" class="an-section-copy an-overview-tabs-section an-jump-target">
+      <div class="an-tab-shell an-overview-tab-shell">
+        <div class="an-tab-topbar">
+          <div>
+            <h3>Key Findings &amp; Data Snapshot</h3>
+          </div>
+        </div>
+
+        <div class="an-tab-nav" role="tablist" aria-label="Key findings and data snapshot views">
+          <button class="an-tab-btn active" type="button" data-tab-target="overview-key-findings-panel">Key Findings</button>
+          <button class="an-tab-btn" type="button" data-tab-target="overview-data-snapshot-panel">Data Snapshot</button>
+        </div>
+
+        <div class="an-tab-panels">
+          <div class="an-tab-panel an-overview-key-panel active" id="overview-key-findings-panel">
       <div class="an-kf-grid">
 
         <div class="an-kf-card is-featured">
@@ -2238,18 +3258,18 @@
           <div class="an-kf-rank">3</div>
           <div class="an-kf-body">
             <h4>Seattle Tops All U.S. Cities</h4>
-            <p><strong>Seattle leads the U.S. ranking</strong> with a score of <strong>73.0</strong>, ahead of Atlanta and Los Angeles when U.S. host cities are scored separately.</p>
+            <p><strong>Seattle leads the U.S. ranking</strong> with a global-index score of <strong>57.3</strong>, ahead of Atlanta and Los Angeles when the global table is filtered to U.S. host cities.</p>
           </div>
-          <span class="an-kf-stat">U.S. Score 73.0</span>
+          <span class="an-kf-stat">U.S. Score 57.3</span>
         </div>
 
         <div class="an-kf-card">
           <div class="an-kf-rank">4</div>
           <div class="an-kf-body">
-            <h4>Atlanta: Fastest Stadium Journey</h4>
-            <p><strong>Atlanta has the shortest city-centre-to-stadium transit time</strong> at just <strong>27 minutes</strong>, though its overall score is held back by safety and hot-weather factors.</p>
+            <h4>Atlanta: Fastest Stadium Trip</h4>
+            <p><strong>Atlanta has the shortest downtown-to-stadium transit time</strong> at just <strong>27 minutes</strong>, though its overall score is held back by safety and hot-weather factors.</p>
           </div>
-          <span class="an-kf-stat">27-Min Journey</span>
+          <span class="an-kf-stat">27-Min Trip</span>
         </div>
 
         <div class="an-kf-card">
@@ -2265,14 +3285,15 @@
           <div class="an-kf-rank">6</div>
           <div class="an-kf-body">
             <h4>Kansas City: Hardest Draw Globally</h4>
-            <p><strong>Kansas City ranks last globally</strong> with a score of <strong>16.7</strong>, driven by long journey times, low walkability and very limited nearby hotel density.</p>
+            <p><strong>Kansas City ranks last globally</strong> with a score of <strong>16.7</strong>, driven by long travel times, low walkability and very limited nearby hotel density.</p>
           </div>
           <span class="an-kf-stat">Score 16.7 / 100</span>
         </div>
 
       </div>
-    </section>
+          </div>
 
+          <div class="an-tab-panel an-overview-data-panel" id="overview-data-snapshot-panel">
     <section class="an-visual-shell">
       <div class="an-download-row">
         <div class="an-tools-left">
@@ -2313,7 +3334,7 @@
               style="background:linear-gradient(rgba(5,18,35,.74),rgba(5,18,35,.74)),url('https://images.unsplash.com/photo-1731450626181-8251d2d3869b?w=800&q=75&auto=format&fit=crop');background-size:cover;background-position:center;--card-city-bright:#5dd8ff;--card-accent:#285d78;">
               <div class="an-card-top">
                 <p class="an-card-label">No. 1 U.S. host city</p>
-                <span class="an-card-score">73.0</span>
+                <span class="an-card-score">57.3</span>
               </div>
               <div class="an-card-city-wrap">
                 <div class="an-card-city"><span class="an-flag us" aria-hidden="true"></span>Seattle</div>
@@ -2352,11 +3373,34 @@
         <p class="an-source"><strong>Source:</strong> Action Network analysis of 16 FIFA World Cup 2026 host cities. Scores shown out of 100.</p>
       </article>
     </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="expert-quote-section" class="an-section-copy an-expert-quote-section an-jump-target">
+      <div class="an-expert-quote-head">
+        <div class="an-expert-quote-label">Expert quote</div>
+        <a class="an-back-to-menu" href="#section-menu" aria-label="Back to section menu"><span aria-hidden="true">↑</span>Menu</a>
+      </div>
+      <blockquote class="an-expert-quote-body">
+        “For traveling fans, the game itself is only 90 minutes, but everything around it can define the entire trip. The biggest mistake fans can make is planning around the host city name alone. A stadium two hours from downtown, limited bars nearby or 94-degree heat can quickly change the experience. This index puts the full matchday picture in one place, from travel time and cost to safety, atmosphere and hotel access, so fans know what to expect before they book and can make the most of whichever city they visit.”
+      </blockquote>
+      <p class="an-expert-quote-credit">Action Network spokesperson</p>
+    </section>
+
+    
+    <div id="global-ranking-section" class="an-section-separator an-jump-target">
+      <div class="an-section-separator-inner">
+        <div class="an-section-separator-label"><span>01</span>Global ranking</div>
+        <a class="an-back-to-menu" href="#section-menu" aria-label="Back to section menu"><span aria-hidden="true">↑</span>Menu</a>
+      </div>
+    </div>
 
     <section class="an-section-copy">
       <h2>Global Fan Experience Ranking</h2>
-      <p>Vancouver is the clear winner in the global table, finishing <strong>19 points ahead of Toronto</strong> and nearly <strong>25 points ahead of Seattle</strong>. The Canadian host city performs especially well on walkability, hotel density, bar density and match-day weather.</p>
-      <p>The global ranking also shows how different match-day strengths can offset weaknesses. Mexico City and Monterrey score well on cost, while Atlanta benefits from the shortest listed journey time to the stadium. However, cities with long transit routes, lower walkability, low nearby hotel density or hotter weather tend to fall down the final table.</p>
+      <p>Vancouver is the clear winner in the global table, finishing <strong>19 points ahead of Toronto</strong> and nearly <strong>25 points ahead of Seattle</strong>. The Canadian host city performs especially well on walkability, hotel density, bar density and matchday weather.</p>
+      <p>The global ranking also shows how different matchday strengths can offset weaknesses. Mexico City and Monterrey score well on cost, while Atlanta benefits from the shortest listed travel time to the stadium. However, cities with long transit routes, lower walkability, low nearby hotel density or hotter weather tend to drop down the final table.</p>
     </section>
 
     <section class="an-visual-shell">
@@ -2399,7 +3443,7 @@
 
             <div class="an-tab-panels">
               <div class="an-tab-panel active" id="global-chart-panel">
-                <p class="an-score-caption"><strong>Score out of 100:</strong> Higher scores indicate a stronger overall fan experience across accessibility, cost, atmosphere, safety, weather and accommodation.</p>
+                <p class="an-score-caption"><strong>Score out of 100:</strong> Higher scores indicate a stronger overall fan experience across accessibility, cost, atmosphere, safety, weather and hotel access.</p>
                 <div class="an-chart-scroll">
                   <div class="an-bar-chart">
                     <div class="an-bar-row"><span class="an-rank-pill">1</span><div class="an-city-label"><strong><span class="an-flag ca" aria-hidden="true"></span>Vancouver</strong><span>BC Place</span></div><div class="an-track"><div class="an-fill" data-width="100%"></div></div><div class="an-score">82.2</div></div>
@@ -2439,19 +3483,19 @@
                   <table class="an-data-table" id="global-table">
                     <thead>
                       <tr>
-                        <th data-type="number">Rank <span class="sort-hint">↕</span></th>
-                        <th data-type="text">Host City <span class="sort-hint">↕</span></th>
-                        <th data-type="text">Stadium <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Fan Experience<br>Score (0–100) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Journey Time<br>(min) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Walkability<br>Score (0–100) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Avg Meal Cost<br>(USD) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Avg Beer Price<br>(USD) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Nearby Bar Density<br>(places/sq. mi.) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Football Pitches<br>(per 100k residents) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Safety<br>Score <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Avg Matchday<br>Temp (°F) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Nearby Hotel Density<br>(places/sq. mi.) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Overall position based on the weighted Fan Experience Index score.">Rank <span class="sort-hint">↕</span></th>
+                        <th data-type="text" data-tooltip="The 2026 World Cup host city or market linked to each stadium.">Host City <span class="sort-hint">↕</span></th>
+                        <th data-type="text" data-tooltip="The venue used for the city-level fan experience measure.">Stadium <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Final weighted index score across travel, cost, atmosphere, safety and accommodation.">Fan Experience<br>Score (0–100) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Estimated trip time from the city center or downtown area to the stadium.">Travel Time<br>(min) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="How easy the stadium area is to navigate on foot, scored out of 100.">Walkability<br>Score (0–100) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Average meal cost used to estimate everyday fan spending in each city.">Avg Meal Cost<br>(USD) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Average beer price used as a simple matchday affordability marker.">Avg Beer Price<br>(USD) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Nearby bar density around the stadium area, shown as places per square mile.">Nearby Bar Density<br>(places/sq. mi.) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Soccer fields per 100,000 residents, used as a local soccer culture marker.">Soccer Fields<br>(per 100k residents) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Safety score used to compare the wider matchday environment for traveling fans.">Safety<br>Score <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Average expected matchday temperature, included because heat can shape the fan experience.">Avg Matchday<br>Temp (°F) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Nearby hotel density around the stadium area, shown as places per square mile.">Nearby Hotel Density<br>(places/sq. mi.) <span class="sort-hint">↕</span></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -2483,10 +3527,113 @@
       </article>
     </section>
 
+
+    <section class="an-section-copy an-focus-section">
+      <div class="an-focus-head">
+        <div>
+          <span class="an-focus-kicker">Global Top 5</span>
+          <h2>Top 5 Cities in Focus</h2>
+        </div>
+        <p class="an-focus-intro">A closer look at the strengths that push the leading global host cities up the Fan Experience Index.</p>
+      </div>
+
+      <div class="an-focus-grid">
+        <article class="an-focus-card is-leader">
+          <div class="an-focus-top">
+            <span class="an-focus-rank">1</span>
+            <div class="an-focus-title">
+              <h3 class="an-focus-city"><span class="an-flag ca" aria-hidden="true"></span>Vancouver</h3>
+              <span class="an-focus-score">Score 82.2</span>
+            </div>
+          </div>
+          <div class="an-focus-metrics">
+            <span class="an-focus-metric"><strong>98</strong> walkability</span>
+            <span class="an-focus-metric"><strong>36 min</strong> trip</span>
+            <span class="an-focus-metric"><strong>3.71</strong> hotel density</span>
+            <span class="an-focus-metric"><strong>70.3°F</strong> matchday temp</span>
+          </div>
+          <p><strong>What it means for fans:</strong> Vancouver combines the easiest stadium-area movement with strong nearby hotel access, giving visiting fans a more compact and convenient matchday base.</p>
+        </article>
+
+        <article class="an-focus-card">
+          <div class="an-focus-top">
+            <span class="an-focus-rank">2</span>
+            <div class="an-focus-title">
+              <h3 class="an-focus-city"><span class="an-flag ca" aria-hidden="true"></span>Toronto</h3>
+              <span class="an-focus-score">Score 63.2</span>
+            </div>
+          </div>
+          <div class="an-focus-metrics">
+            <span class="an-focus-metric"><strong>19.98</strong> bar density</span>
+            <span class="an-focus-metric"><strong>79</strong> walkability</span>
+            <span class="an-focus-metric"><strong>49 min</strong> trip</span>
+          </div>
+          <p><strong>What it means for fans:</strong> Toronto’s biggest edge is the social scene around the stadium area, with the highest nearby bar density in the global table.</p>
+        </article>
+
+        <article class="an-focus-card">
+          <div class="an-focus-top">
+            <span class="an-focus-rank">3</span>
+            <div class="an-focus-title">
+              <h3 class="an-focus-city"><span class="an-flag us" aria-hidden="true"></span>Seattle</h3>
+              <span class="an-focus-score">Score 57.3</span>
+            </div>
+          </div>
+          <div class="an-focus-metrics">
+            <span class="an-focus-metric"><strong>89</strong> walkability</span>
+            <span class="an-focus-metric"><strong>13.37</strong> bar density</span>
+            <span class="an-focus-metric"><strong>2.51</strong> hotel density</span>
+          </div>
+          <p><strong>What it means for fans:</strong> Seattle is the best U.S. all-rounder, pairing a walkable stadium setting with strong pre- and post-match options nearby.</p>
+        </article>
+
+        <article class="an-focus-card">
+          <div class="an-focus-top">
+            <span class="an-focus-rank">4</span>
+            <div class="an-focus-title">
+              <h3 class="an-focus-city"><span class="an-flag mx" aria-hidden="true"></span>Mexico City</h3>
+              <span class="an-focus-score">Score 46.3</span>
+            </div>
+          </div>
+          <div class="an-focus-metrics">
+            <span class="an-focus-metric"><strong>84</strong> walkability</span>
+            <span class="an-focus-metric"><strong>$11.62</strong> meal cost</span>
+            <span class="an-focus-metric"><strong>$3.37</strong> beer price</span>
+          </div>
+          <p><strong>What it means for fans:</strong> Mexico City shines on affordability and walkability, making it a strong value option despite a longer listed stadium trip.</p>
+        </article>
+
+        <article class="an-focus-card">
+          <div class="an-focus-top">
+            <span class="an-focus-rank">5</span>
+            <div class="an-focus-title">
+              <h3 class="an-focus-city"><span class="an-flag us" aria-hidden="true"></span>Atlanta</h3>
+              <span class="an-focus-score">Score 43.6</span>
+            </div>
+          </div>
+          <div class="an-focus-metrics">
+            <span class="an-focus-metric"><strong>27 min</strong> trip</span>
+            <span class="an-focus-metric"><strong>79</strong> walkability</span>
+            <span class="an-focus-metric"><strong>26.22</strong> soccer fields per 100k</span>
+          </div>
+          <p><strong>What it means for fans:</strong> Atlanta offers the quickest downtown-to-stadium trip in the index, which helps offset tougher weather and safety metrics.</p>
+        </article>
+      </div>
+    </section>
+
+
+    
+    <div id="us-ranking-section" class="an-section-separator an-jump-target">
+      <div class="an-section-separator-inner">
+        <div class="an-section-separator-label"><span>02</span>U.S. ranking</div>
+        <a class="an-back-to-menu" href="#section-menu" aria-label="Back to section menu"><span aria-hidden="true">↑</span>Menu</a>
+      </div>
+    </div>
+
     <section class="an-section-copy">
       <h2>U.S. Host City Ranking</h2>
-      <p>When the 11 U.S. host cities are ranked separately, Seattle leads with a score of <strong>73.0</strong>. Its high walkability, strong bar density, relatively mild weather and hotel availability near Lumen Field make it the strongest U.S. fan experience in the data.</p>
-      <p>Atlanta ranks second among U.S. cities thanks to its <strong>27-minute</strong> listed stadium journey time and strong walkability, while Los Angeles takes third. At the bottom, Miami and Kansas City face the toughest fan-experience profile among U.S. hosts, with lower walkability and limited nearby stadium-area density.</p>
+      <p>When the 11 U.S. host cities are ranked using the same global-index scores, Seattle leads with a score of <strong>57.3</strong>. Its high walkability, strong bar density, relatively mild weather and hotel availability near Lumen Field make it the strongest U.S. fan experience in the data.</p>
+      <p>Atlanta ranks second among U.S. cities thanks to its <strong>27-minute</strong> listed stadium travel time and strong walkability, while Los Angeles takes third. At the bottom, Miami and Kansas City face the toughest fan-experience profile among U.S. hosts, with lower walkability and limited nearby stadium-area density.</p>
     </section>
 
     <section class="an-visual-shell">
@@ -2517,7 +3664,7 @@
             <div class="an-tab-topbar">
               <div>
                 <h3>U.S. host-city ranking</h3>
-                <p>Scores are normalized within the 11 U.S. host cities using the same weighted index structure.</p>
+                <p>Scores use the same global index scale, filtered to U.S. host cities only.</p>
               </div>
               <span class="an-score-badge">Score <strong>out of 100</strong></span>
             </div>
@@ -2529,20 +3676,20 @@
 
             <div class="an-tab-panels">
               <div class="an-tab-panel active" id="us-chart-panel">
-                <p class="an-score-caption"><strong>Score out of 100:</strong> Higher scores indicate a stronger overall fan experience within the U.S.-only ranking.</p>
+                <p class="an-score-caption"><strong>Score out of 100:</strong> U.S. rankings use the same global index scores, filtered to U.S. host cities only.</p>
                 <div class="an-chart-scroll">
                   <div class="an-bar-chart">
-                    <div class="an-bar-row"><span class="an-rank-pill">1</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Seattle</strong><span>Lumen Field</span></div><div class="an-track"><div class="an-fill" data-width="100%"></div></div><div class="an-score">73.0</div></div>
-                    <div class="an-bar-row"><span class="an-rank-pill">2</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Atlanta</strong><span>Mercedes-Benz Stadium</span></div><div class="an-track"><div class="an-fill blue" data-width="80.8%"></div></div><div class="an-score">59.0</div></div>
-                    <div class="an-bar-row"><span class="an-rank-pill">3</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Los Angeles</strong><span>SoFi Stadium</span></div><div class="an-track"><div class="an-fill gold" data-width="62.1%"></div></div><div class="an-score">45.3</div></div>
-                    <div class="an-bar-row"><span class="an-rank-pill">4</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Dallas</strong><span>AT&amp;T Stadium</span></div><div class="an-track"><div class="an-fill" data-width="57.5%"></div></div><div class="an-score">42.0</div></div>
-                    <div class="an-bar-row"><span class="an-rank-pill">5</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Houston</strong><span>NRG Stadium</span></div><div class="an-track"><div class="an-fill blue" data-width="56.0%"></div></div><div class="an-score">40.9</div></div>
-                    <div class="an-bar-row"><span class="an-rank-pill">6</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Boston</strong><span>Gillette Stadium</span></div><div class="an-track"><div class="an-fill gold" data-width="50.7%"></div></div><div class="an-score">37.0</div></div>
-                    <div class="an-bar-row"><span class="an-rank-pill">7</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Philadelphia</strong><span>Lincoln Financial Field</span></div><div class="an-track"><div class="an-fill" data-width="47.1%"></div></div><div class="an-score">34.4</div></div>
-                    <div class="an-bar-row"><span class="an-rank-pill">8</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>San Francisco</strong><span>Levi's Stadium</span></div><div class="an-track"><div class="an-fill blue" data-width="41.8%"></div></div><div class="an-score">30.5</div></div>
-                    <div class="an-bar-row"><span class="an-rank-pill">9</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>New York/NJ</strong><span>MetLife Stadium</span></div><div class="an-track"><div class="an-fill gold" data-width="35.2%"></div></div><div class="an-score">25.7</div></div>
-                    <div class="an-bar-row"><span class="an-rank-pill">10</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Kansas City</strong><span>Arrowhead Stadium</span></div><div class="an-track"><div class="an-fill red" data-width="29.9%"></div></div><div class="an-score">21.8</div></div>
-                    <div class="an-bar-row"><span class="an-rank-pill">11</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Miami</strong><span>Hard Rock Stadium</span></div><div class="an-track"><div class="an-fill red" data-width="28.1%"></div></div><div class="an-score">20.5</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">1</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Seattle</strong><span>Lumen Field</span></div><div class="an-track"><div class="an-fill" data-width="100%"></div></div><div class="an-score">57.3</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">2</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Atlanta</strong><span>Mercedes-Benz Stadium</span></div><div class="an-track"><div class="an-fill blue" data-width="76.1%"></div></div><div class="an-score">43.6</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">3</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Los Angeles</strong><span>SoFi Stadium</span></div><div class="an-track"><div class="an-fill gold" data-width="65.6%"></div></div><div class="an-score">37.6</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">4</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Dallas</strong><span>AT&amp;T Stadium</span></div><div class="an-track"><div class="an-fill" data-width="57.1%"></div></div><div class="an-score">32.7</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">5</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Boston</strong><span>Gillette Stadium</span></div><div class="an-track"><div class="an-fill blue" data-width="57.1%"></div></div><div class="an-score">32.7</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">6</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Houston</strong><span>NRG Stadium</span></div><div class="an-track"><div class="an-fill gold" data-width="49.4%"></div></div><div class="an-score">28.3</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">7</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>San Francisco</strong><span>Levi's Stadium</span></div><div class="an-track"><div class="an-fill" data-width="43.5%"></div></div><div class="an-score">24.9</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">8</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>New York/NJ</strong><span>MetLife Stadium</span></div><div class="an-track"><div class="an-fill blue" data-width="42.2%"></div></div><div class="an-score">24.2</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">9</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Philadelphia</strong><span>Lincoln Financial Field</span></div><div class="an-track"><div class="an-fill gold" data-width="41.9%"></div></div><div class="an-score">24.0</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">10</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Miami</strong><span>Hard Rock Stadium</span></div><div class="an-track"><div class="an-fill red" data-width="33.3%"></div></div><div class="an-score">19.1</div></div>
+                    <div class="an-bar-row"><span class="an-rank-pill">11</span><div class="an-city-label"><strong><span class="an-flag us" aria-hidden="true"></span>Kansas City</strong><span>Arrowhead Stadium</span></div><div class="an-track"><div class="an-fill red" data-width="29.1%"></div></div><div class="an-score">16.7</div></div>
                   </div>
                 </div>
               </div>
@@ -2564,33 +3711,33 @@
                   <table class="an-data-table" id="us-table">
                     <thead>
                       <tr>
-                        <th data-type="number">Rank <span class="sort-hint">↕</span></th>
-                        <th data-type="text">Host City <span class="sort-hint">↕</span></th>
-                        <th data-type="text">Stadium <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Fan Experience<br>Score (0–100) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Journey Time<br>(min) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Walkability<br>Score (0–100) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Avg Meal Cost<br>(USD) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Avg Beer Price<br>(USD) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Nearby Bar Density<br>(places/sq. mi.) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Football Pitches<br>(per 100k residents) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Safety<br>Score <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Avg Matchday<br>Temp (°F) <span class="sort-hint">↕</span></th>
-                        <th data-type="number">Nearby Hotel Density<br>(places/sq. mi.) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Overall position based on the weighted Fan Experience Index score.">Rank <span class="sort-hint">↕</span></th>
+                        <th data-type="text" data-tooltip="The 2026 World Cup host city or market linked to each stadium.">Host City <span class="sort-hint">↕</span></th>
+                        <th data-type="text" data-tooltip="The venue used for the city-level fan experience measure.">Stadium <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Final weighted index score across travel, cost, atmosphere, safety and accommodation.">Fan Experience<br>Score (0–100) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Estimated trip time from the city center or downtown area to the stadium.">Travel Time<br>(min) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="How easy the stadium area is to navigate on foot, scored out of 100.">Walkability<br>Score (0–100) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Average meal cost used to estimate everyday fan spending in each city.">Avg Meal Cost<br>(USD) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Average beer price used as a simple matchday affordability marker.">Avg Beer Price<br>(USD) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Nearby bar density around the stadium area, shown as places per square mile.">Nearby Bar Density<br>(places/sq. mi.) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Soccer fields per 100,000 residents, used as a local soccer culture marker.">Soccer Fields<br>(per 100k residents) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Safety score used to compare the wider matchday environment for traveling fans.">Safety<br>Score <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Average expected matchday temperature, included because heat can shape the fan experience.">Avg Matchday<br>Temp (°F) <span class="sort-hint">↕</span></th>
+                        <th data-type="number" data-tooltip="Nearby hotel density around the stadium area, shown as places per square mile.">Nearby Hotel Density<br>(places/sq. mi.) <span class="sort-hint">↕</span></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr><td class="an-rank-cell">1</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Seattle</strong></td><td>Lumen Field</td><td>73.0</td><td>45</td><td>89</td><td>$21.00</td><td>$8.00</td><td>13.37</td><td>11.45</td><td>44.67</td><td>74.1</td><td>2.51</td></tr>
-                      <tr><td class="an-rank-cell">2</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Atlanta</strong></td><td>Mercedes-Benz Stadium</td><td>59.0</td><td>27</td><td>79</td><td>$25.00</td><td>$6.50</td><td>6.26</td><td>26.22</td><td>35.86</td><td>87.6</td><td>1.70</td></tr>
-                      <tr><td class="an-rank-cell">3</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Los Angeles</strong></td><td>SoFi Stadium</td><td>45.3</td><td>51</td><td>46</td><td>$25.00</td><td>$8.00</td><td>0.32</td><td>14.83</td><td>46.06</td><td>80.6</td><td>2.02</td></tr>
-                      <tr><td class="an-rank-cell">4</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Dallas</strong></td><td>AT&amp;T Stadium</td><td>42.0</td><td>102</td><td>56</td><td>$20.00</td><td>$7.25</td><td>0.74</td><td>20.34</td><td>48.59</td><td>94.1</td><td>1.06</td></tr>
-                      <tr><td class="an-rank-cell">5</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Houston</strong></td><td>NRG Stadium</td><td>40.9</td><td>87</td><td>31</td><td>$21.00</td><td>$6.00</td><td>0.95</td><td>17.61</td><td>36.95</td><td>91.4</td><td>1.31</td></tr>
-                      <tr><td class="an-rank-cell">6</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Boston</strong></td><td>Gillette Stadium</td><td>37.0</td><td>107</td><td>44</td><td>$25.00</td><td>$8.00</td><td>0.28</td><td>31.73</td><td>59.74</td><td>80.3</td><td>0.11</td></tr>
-                      <tr><td class="an-rank-cell">7</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Philadelphia</strong></td><td>Lincoln Financial Field</td><td>34.4</td><td>66</td><td>19</td><td>$21.00</td><td>$6.00</td><td>2.51</td><td>10.46</td><td>34.52</td><td>86.2</td><td>0.11</td></tr>
-                      <tr><td class="an-rank-cell">8</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>San Francisco</strong></td><td>Levi's Stadium</td><td>30.5</td><td>112</td><td>42</td><td>$26.50</td><td>$8.00</td><td>1.13</td><td>43.27</td><td>39.47</td><td>80.6</td><td>0.67</td></tr>
-                      <tr><td class="an-rank-cell">9</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>New York/NJ</strong></td><td>MetLife Stadium</td><td>25.7</td><td>122</td><td>40</td><td>$25.00</td><td>$8.00</td><td>0.46</td><td>1.69</td><td>49.12</td><td>83.7</td><td>0.64</td></tr>
-                      <tr><td class="an-rank-cell">10</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Kansas City</strong></td><td>Arrowhead Stadium</td><td>21.8</td><td>136</td><td>15</td><td>$25.00</td><td>$7.00</td><td>0.21</td><td>28.65</td><td>41.40</td><td>87.6</td><td>0.21</td></tr>
-                      <tr><td class="an-rank-cell">11</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Miami</strong></td><td>Hard Rock Stadium</td><td>20.5</td><td>111</td><td>29</td><td>$30.00</td><td>$8.00</td><td>0.07</td><td>37.63</td><td>46.70</td><td>88.1</td><td>0.11</td></tr>
+                      <tr><td class="an-rank-cell">1</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Seattle</strong></td><td>Lumen Field</td><td>57.3</td><td>45</td><td>89</td><td>$21.00</td><td>$8.00</td><td>13.37</td><td>11.45</td><td>44.67</td><td>74.1</td><td>2.51</td></tr>
+                      <tr><td class="an-rank-cell">2</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Atlanta</strong></td><td>Mercedes-Benz Stadium</td><td>43.6</td><td>27</td><td>79</td><td>$25.00</td><td>$6.50</td><td>6.26</td><td>26.22</td><td>35.86</td><td>87.6</td><td>1.70</td></tr>
+                      <tr><td class="an-rank-cell">3</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Los Angeles</strong></td><td>SoFi Stadium</td><td>37.6</td><td>51</td><td>46</td><td>$25.00</td><td>$8.00</td><td>0.32</td><td>14.83</td><td>46.06</td><td>80.6</td><td>2.02</td></tr>
+                      <tr><td class="an-rank-cell">4</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Dallas</strong></td><td>AT&amp;T Stadium</td><td>32.7</td><td>102</td><td>56</td><td>$20.00</td><td>$7.25</td><td>0.74</td><td>20.34</td><td>48.59</td><td>94.1</td><td>1.06</td></tr>
+                      <tr><td class="an-rank-cell">5</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Boston</strong></td><td>Gillette Stadium</td><td>32.7</td><td>107</td><td>44</td><td>$25.00</td><td>$8.00</td><td>0.28</td><td>31.73</td><td>59.74</td><td>80.3</td><td>0.11</td></tr>
+                      <tr><td class="an-rank-cell">6</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Houston</strong></td><td>NRG Stadium</td><td>28.3</td><td>87</td><td>31</td><td>$21.00</td><td>$6.00</td><td>0.95</td><td>17.61</td><td>36.95</td><td>91.4</td><td>1.31</td></tr>
+                      <tr><td class="an-rank-cell">7</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>San Francisco</strong></td><td>Levi's Stadium</td><td>24.9</td><td>112</td><td>42</td><td>$26.50</td><td>$8.00</td><td>1.13</td><td>43.27</td><td>39.47</td><td>80.6</td><td>0.67</td></tr>
+                      <tr><td class="an-rank-cell">8</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>New York/NJ</strong></td><td>MetLife Stadium</td><td>24.2</td><td>122</td><td>40</td><td>$25.00</td><td>$8.00</td><td>0.46</td><td>1.69</td><td>49.12</td><td>83.7</td><td>0.64</td></tr>
+                      <tr><td class="an-rank-cell">9</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Philadelphia</strong></td><td>Lincoln Financial Field</td><td>24.0</td><td>66</td><td>19</td><td>$21.00</td><td>$6.00</td><td>2.51</td><td>10.46</td><td>34.52</td><td>86.2</td><td>0.11</td></tr>
+                      <tr><td class="an-rank-cell">10</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Miami</strong></td><td>Hard Rock Stadium</td><td>19.1</td><td>111</td><td>29</td><td>$30.00</td><td>$8.00</td><td>0.07</td><td>37.63</td><td>46.70</td><td>88.1</td><td>0.11</td></tr>
+                      <tr><td class="an-rank-cell">11</td><td class="an-team-cell"><strong><span class="an-flag us" aria-hidden="true"></span>Kansas City</strong></td><td>Arrowhead Stadium</td><td>16.7</td><td>136</td><td>15</td><td>$25.00</td><td>$7.00</td><td>0.21</td><td>28.65</td><td>41.40</td><td>87.6</td><td>0.21</td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -2599,14 +3746,117 @@
           </div>
         </div>
 
-        <p class="an-source"><strong>Source:</strong> Action Network analysis. Scores are shown out of 100. U.S. rankings are normalized within U.S. cities only, with the same category weights as the global index.</p>
+        <p class="an-source"><strong>Source:</strong> Action Network analysis. Scores are shown out of 100. U.S. rankings use the same global index score scale, filtered to U.S. host cities only.</p>
       </article>
     </section>
 
+
+    <section class="an-section-copy an-focus-section">
+      <div class="an-focus-head">
+        <div>
+          <span class="an-focus-kicker">U.S. Top 5</span>
+          <h2>Top 5 Cities in Focus</h2>
+        </div>
+        <p class="an-focus-intro">The leading U.S. host cities use the same global-index score scale, filtered to the American venues.</p>
+      </div>
+
+      <div class="an-focus-grid">
+        <article class="an-focus-card is-leader">
+          <div class="an-focus-top">
+            <span class="an-focus-rank">1</span>
+            <div class="an-focus-title">
+              <h3 class="an-focus-city"><span class="an-flag us" aria-hidden="true"></span>Seattle</h3>
+              <span class="an-focus-score">Score 57.3</span>
+            </div>
+          </div>
+          <div class="an-focus-metrics">
+            <span class="an-focus-metric"><strong>89</strong> walkability</span>
+            <span class="an-focus-metric"><strong>45 min</strong> trip</span>
+            <span class="an-focus-metric"><strong>13.37</strong> bar density</span>
+            <span class="an-focus-metric"><strong>2.51</strong> hotel density</span>
+          </div>
+          <p><strong>What it means for fans:</strong> Seattle gives fans the strongest U.S. blend of walkability, nearby bars, hotel availability and manageable stadium access.</p>
+        </article>
+
+        <article class="an-focus-card">
+          <div class="an-focus-top">
+            <span class="an-focus-rank">2</span>
+            <div class="an-focus-title">
+              <h3 class="an-focus-city"><span class="an-flag us" aria-hidden="true"></span>Atlanta</h3>
+              <span class="an-focus-score">Score 43.6</span>
+            </div>
+          </div>
+          <div class="an-focus-metrics">
+            <span class="an-focus-metric"><strong>27 min</strong> trip</span>
+            <span class="an-focus-metric"><strong>79</strong> walkability</span>
+            <span class="an-focus-metric"><strong>6.26</strong> bar density</span>
+          </div>
+          <p><strong>What it means for fans:</strong> Atlanta’s short stadium journey makes it one of the easiest U.S. cities for getting from downtown to kickoff.</p>
+        </article>
+
+        <article class="an-focus-card">
+          <div class="an-focus-top">
+            <span class="an-focus-rank">3</span>
+            <div class="an-focus-title">
+              <h3 class="an-focus-city"><span class="an-flag us" aria-hidden="true"></span>Los Angeles</h3>
+              <span class="an-focus-score">Score 37.6</span>
+            </div>
+          </div>
+          <div class="an-focus-metrics">
+            <span class="an-focus-metric"><strong>51 min</strong> trip</span>
+            <span class="an-focus-metric"><strong>2.02</strong> hotel density</span>
+            <span class="an-focus-metric"><strong>80.6°F</strong> matchday temp</span>
+          </div>
+          <p><strong>What it means for fans:</strong> Los Angeles benefits from better hotel availability than many U.S. hosts, though the lower walkability score keeps it behind Seattle and Atlanta.</p>
+        </article>
+
+        <article class="an-focus-card">
+          <div class="an-focus-top">
+            <span class="an-focus-rank">4</span>
+            <div class="an-focus-title">
+              <h3 class="an-focus-city"><span class="an-flag us" aria-hidden="true"></span>Dallas</h3>
+              <span class="an-focus-score">Score 32.7</span>
+            </div>
+          </div>
+          <div class="an-focus-metrics">
+            <span class="an-focus-metric"><strong>56</strong> walkability</span>
+            <span class="an-focus-metric"><strong>$20</strong> meal cost</span>
+            <span class="an-focus-metric"><strong>20.34</strong> soccer fields per 100k</span>
+          </div>
+          <p><strong>What it means for fans:</strong> Dallas has some cost and soccer-culture strengths, but longer travel time to the stadium area limits the overall matchday profile.</p>
+        </article>
+
+        <article class="an-focus-card">
+          <div class="an-focus-top">
+            <span class="an-focus-rank">5</span>
+            <div class="an-focus-title">
+              <h3 class="an-focus-city"><span class="an-flag us" aria-hidden="true"></span>Boston</h3>
+              <span class="an-focus-score">Score 32.7</span>
+            </div>
+          </div>
+          <div class="an-focus-metrics">
+            <span class="an-focus-metric"><strong>59.74</strong> safety</span>
+            <span class="an-focus-metric"><strong>31.73</strong> soccer fields per 100k</span>
+            <span class="an-focus-metric"><strong>80.3°F</strong> matchday temp</span>
+          </div>
+          <p><strong>What it means for fans:</strong> Boston performs well on safety and soccer-culture indicators, but lower nearby hotel and bar density makes the stadium area less compact for visitors.</p>
+        </article>
+      </div>
+    </section>
+
+
+    
+    <div id="score-drivers-section" class="an-section-separator an-jump-target">
+      <div class="an-section-separator-inner">
+        <div class="an-section-separator-label"><span>03</span>Score drivers</div>
+        <a class="an-back-to-menu" href="#section-menu" aria-label="Back to section menu"><span aria-hidden="true">↑</span>Menu</a>
+      </div>
+    </div>
+
     <section class="an-section-copy">
       <h2>What Separates the Best Host Cities?</h2>
-      <p>The strongest cities do not just perform well in one area. Vancouver combines elite walkability, a cooler match-day temperature profile and the best hotel density in the analysis, while Toronto stands out for nearby bar density and Seattle performs strongly across the U.S. set.</p>
-      <p>The data also shows why affordability alone is not enough. Mexico City, Monterrey and Guadalajara are among the most affordable cities for food and beer, but lower stadium-area density and longer journeys prevent them from topping the overall table.</p>
+      <p>The strongest cities do not just perform well in one area. Vancouver combines elite walkability, a cooler matchday temperature profile and the best hotel density in the analysis, while Toronto stands out for nearby bar density and Seattle performs strongly across the U.S. set.</p>
+      <p>The data also shows why affordability alone is not enough. Mexico City, Monterrey and Guadalajara are among the most affordable cities for food and beer, but lower stadium-area density and longer travel times prevent them from topping the overall table.</p>
     </section>
 
     <section class="an-visual-shell">
@@ -2656,9 +3906,9 @@
 
             <div class="an-metric-card blue">
               <div class="an-metric-icon" data-icon="stopwatch" aria-hidden="true"></div>
-              <h3>Fastest stadium journey</h3>
+              <h3>Fastest stadium trip</h3>
               <p class="an-metric-main">27m</p>
-              <p><strong><span class="an-flag us" aria-hidden="true"></span>Atlanta</strong> has the shortest listed city-center-to-stadium transit journey.</p>
+              <p><strong><span class="an-flag us" aria-hidden="true"></span>Atlanta</strong> has the shortest listed downtown-to-stadium transit trip.</p>
               <div class="an-progress-list">
                 <div class="an-progress-row">
                   <div class="an-progress-head"><span class="an-progress-city"><span class="an-flag us" aria-hidden="true"></span>Atlanta</span><strong class="an-progress-value">27 min</strong></div>
@@ -2769,16 +4019,64 @@
       </article>
     </section>
 
+    
+    <div id="methodology-section" class="an-section-separator an-jump-target">
+      <div class="an-section-separator-inner">
+        <div class="an-section-separator-label"><span>04</span>Methodology</div>
+        <a class="an-back-to-menu" href="#section-menu" aria-label="Back to section menu"><span aria-hidden="true">↑</span>Menu</a>
+      </div>
+    </div>
+
     <section class="an-section-copy">
       <h2>Methodology</h2>
-      <p>The Fan Experience Index ranks all 16 FIFA 2026 host cities using objective, stadium-level data across five categories: accessibility, cost, atmosphere, safety and weather, and accommodation. Each metric is normalized to a 0–10 scale using min-max normalization, then weighted and summed to create a final Fan Experience Score out of 100.</p>
-      <p>Lower-is-better metrics, including journey time, meal cost, beer price and match-day temperature, are inverted so lower raw values improve a city’s score. Stadium-level data is used throughout so the ranking reflects the actual match-day area rather than the broader branded host city.</p>
+      <p>The Fan Experience Index ranks all 16 FIFA 2026 host cities using objective, stadium-level data across five categories: accessibility, cost, atmosphere, safety and weather, and hotel access. Each metric is normalized to a 0–10 scale using min-max normalization, then weighted and summed to create a final Fan Experience Score out of 100.</p>
+      <p>Lower-is-better metrics, including travel time, meal cost, beer price and matchday temperature, are inverted so lower raw values improve a city’s score. Stadium-level data is used throughout so the ranking reflects the actual matchday area rather than the broader branded host city.</p>
       <div class="an-method-grid">
-        <div class="an-method-card"><div class="an-method-icon" data-icon="walking" aria-hidden="true"></div><strong>Accessibility</strong><span>25%</span><p>Journey time and walkability around the stadium.</p></div>
-        <div class="an-method-card"><div class="an-method-icon" data-icon="coin" aria-hidden="true"></div><strong>Cost</strong><span>20%</span><p>Average meal cost and average beer price.</p></div>
-        <div class="an-method-card"><div class="an-method-icon" data-icon="cheers" aria-hidden="true"></div><strong>Atmosphere</strong><span>20%</span><p>Nearby bar density (places per sq. mi.) and football pitches per 100,000 residents.</p></div>
-        <div class="an-method-card"><div class="an-method-icon" data-icon="shieldSun" aria-hidden="true"></div><strong>Safety & Weather</strong><span>20%</span><p>Safety score and average match-day temperature.</p></div>
-        <div class="an-method-card"><div class="an-method-icon" data-icon="bed" aria-hidden="true"></div><strong>Accommodation</strong><span>15%</span><p>Nearby hotel density, shown as places per sq. mi. within the stadium-area measure.</p></div>
+        <div class="an-method-card">
+          <div class="an-method-icon" data-icon="walking" aria-hidden="true"></div>
+          <strong>Accessibility</strong><span>25%</span>
+          <p>Measures how simple it is for fans to get to and move around the stadium area.</p>
+          <ul class="an-method-points">
+            <li><strong>Travel time:</strong> estimated city-center-to-stadium journey time.</li>
+            <li><strong>Walkability:</strong> how easy the surrounding area is to navigate on foot.</li>
+          </ul>
+        </div>
+        <div class="an-method-card">
+          <div class="an-method-icon" data-icon="coin" aria-hidden="true"></div>
+          <strong>Cost</strong><span>20%</span>
+          <p>Tracks the everyday matchday spending fans are most likely to feel.</p>
+          <ul class="an-method-points">
+            <li><strong>Meal cost:</strong> average price of a casual meal in the host area.</li>
+            <li><strong>Beer price:</strong> average beer cost, with lower prices improving the score.</li>
+          </ul>
+        </div>
+        <div class="an-method-card">
+          <div class="an-method-icon" data-icon="cheers" aria-hidden="true"></div>
+          <strong>Atmosphere</strong><span>20%</span>
+          <p>Looks at the social and soccer culture around the matchday area.</p>
+          <ul class="an-method-points">
+            <li><strong>Bar density:</strong> nearby bars and pub-style venues per sq. mi.</li>
+            <li><strong>Soccer fields:</strong> local soccer footprint per 100,000 residents.</li>
+          </ul>
+        </div>
+        <div class="an-method-card">
+          <div class="an-method-icon" data-icon="shieldSun" aria-hidden="true"></div>
+          <strong>Safety & Weather</strong><span>20%</span>
+          <p>Balances general safety conditions with expected summer matchday heat.</p>
+          <ul class="an-method-points">
+            <li><strong>Safety score:</strong> overall city safety indicator used for comparison.</li>
+            <li><strong>Matchday temp:</strong> average expected temperature around game day.</li>
+          </ul>
+        </div>
+        <div class="an-method-card">
+          <div class="an-method-icon" data-icon="bed" aria-hidden="true"></div>
+          <strong>Hotel Access</strong><span>15%</span>
+          <p>Shows how much accommodation choice fans have close to the stadium.</p>
+          <ul class="an-method-points">
+            <li><strong>Hotel density:</strong> nearby hotel options per sq. mi.</li>
+            <li><strong>Stadium-area measure:</strong> focuses on the matchday base, not the wider city.</li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -2901,26 +4199,46 @@
     const AN_EXPORT_SCALE = 4;
 
     function getExportWidth(target){
-      return AN_EXPORT_LAYOUT_WIDTH;
+      let exportWidth = AN_EXPORT_LAYOUT_WIDTH;
+
+      const activeTablePanel = target.querySelector('.an-tab-panel.active .an-table-scroll');
+      if(activeTablePanel){
+        const table = activeTablePanel.querySelector('.an-data-table');
+        const panelTools = target.querySelector('.an-tab-panel.active .an-panel-tools');
+        const legend = target.querySelector('.an-tab-panel.active .an-heatmap-legend');
+        const tableWidth = table ? table.scrollWidth : 0;
+        const toolsWidth = panelTools ? panelTools.scrollWidth : 0;
+        const legendWidth = legend ? legend.scrollWidth : 0;
+        const exportPadding = 120;
+        exportWidth = Math.max(
+          exportWidth,
+          tableWidth + exportPadding,
+          toolsWidth + exportPadding,
+          legendWidth + exportPadding
+        );
+      }
+
+      return Math.ceil(exportWidth);
     }
 
     function prepareCloneForExport(source, exportWidth){
       const clone = source.cloneNode(true);
       clone.classList.add('is-exporting');
-      clone.style.width = exportWidth + 'px';
-      clone.style.maxWidth = 'none';
-      clone.style.position = 'fixed';
-      clone.style.left = '-100000px';
-      clone.style.top = '0';
-      clone.style.zIndex = '-1';
-      clone.style.opacity = '1';
-      clone.style.pointerEvents = 'none';
-      clone.style.background = '#ffffff';
+      clone.style.setProperty('width', exportWidth + 'px', 'important');
+      clone.style.setProperty('min-width', exportWidth + 'px', 'important');
+      clone.style.setProperty('max-width', exportWidth + 'px', 'important');
+      clone.style.setProperty('position', 'fixed');
+      clone.style.setProperty('left', '-100000px');
+      clone.style.setProperty('top', '0');
+      clone.style.setProperty('z-index', '-1');
+      clone.style.setProperty('opacity', '1');
+      clone.style.setProperty('pointer-events', 'none');
+      clone.style.setProperty('background', '#ffffff');
 
       clone.querySelectorAll('.an-chart-scroll, .an-table-scroll').forEach(node => {
-        node.style.overflowX = 'auto';
-        node.style.overflowY = 'hidden';
-        node.style.width = '100%';
+        node.style.setProperty('overflow-x', 'visible', 'important');
+        node.style.setProperty('overflow-y', 'visible', 'important');
+        node.style.setProperty('width', '100%', 'important');
       });
 
       clone.querySelectorAll('.an-tab-panel').forEach(panel => {
@@ -2934,6 +4252,17 @@
       clone.querySelectorAll('.an-tab-btn').forEach(button => {
         button.disabled = true;
       });
+
+      const activeTablePanel = clone.querySelector('.an-tab-panel.active');
+      if(activeTablePanel){
+        const table = activeTablePanel.querySelector('.an-data-table');
+        if(table){
+          const fullTableWidth = Math.max(table.scrollWidth + 48, exportWidth - 48);
+          table.style.setProperty('width', fullTableWidth + 'px', 'important');
+          table.style.setProperty('min-width', fullTableWidth + 'px', 'important');
+          table.style.setProperty('margin-right', '24px', 'important');
+        }
+      }
 
       return clone;
     }
@@ -2955,7 +4284,9 @@
       if(!target) return;
 
       const oldStatus = status ? status.textContent : '';
-      if(status) status.textContent = 'Rendering high-res 2880px PNG...';
+      const exportWidth = getExportWidth(target);
+      const exportPixelWidth = exportWidth * AN_EXPORT_SCALE;
+      if(status) status.textContent = 'Rendering high-res ' + exportPixelWidth + 'px PNG...';
 
       let clone = null;
 
@@ -2965,7 +4296,6 @@
 
         setBarsReady(target);
 
-        const exportWidth = getExportWidth(target);
         clone = prepareCloneForExport(target, exportWidth);
         document.body.appendChild(clone);
 
@@ -3001,7 +4331,7 @@
         link.href = canvas.toDataURL('image/png', 1.0);
         link.click();
 
-        if(status) status.textContent = 'High-res 2880px PNG downloaded';
+        if(status) status.textContent = 'High-res ' + exportPixelWidth + 'px PNG downloaded';
       } catch(err){
         console.error(err);
         if(status) status.textContent = 'Download failed — please try again';
@@ -3013,7 +4343,7 @@
       }
 
       setTimeout(() => {
-        if(status) status.textContent = oldStatus || 'High-res 2880px PNG export ready';
+        if(status) status.textContent = oldStatus || ('High-res ' + exportPixelWidth + 'px PNG export ready');
       }, 3000);
     }
 
@@ -3059,6 +4389,85 @@
             row.style.display = row.textContent.toLowerCase().includes(term) ? '' : 'none';
           });
         });
+      });
+    }
+
+    function setupHeaderTooltips(){
+      const headers = document.querySelectorAll('.an-data-table th[data-tooltip]');
+      if(!headers.length) return;
+
+      let tooltip = document.querySelector('.an-floating-tooltip');
+      if(!tooltip){
+        tooltip = document.createElement('div');
+        tooltip.className = 'an-floating-tooltip';
+        tooltip.setAttribute('role', 'tooltip');
+        document.body.appendChild(tooltip);
+      }
+
+      let activeHeader = null;
+
+      function positionTooltip(th){
+        if(!tooltip || !th) return;
+        const text = th.getAttribute('data-tooltip') || '';
+        if(!text) return;
+
+        tooltip.textContent = text;
+        tooltip.classList.add('is-visible');
+        tooltip.classList.remove('is-below');
+
+        const rect = th.getBoundingClientRect();
+        const tipRect = tooltip.getBoundingClientRect();
+        const gap = 12;
+        const margin = 8;
+        let left = rect.left + (rect.width / 2) - (tipRect.width / 2);
+        let top = rect.top - tipRect.height - gap;
+        let isBelow = false;
+
+        if(top < margin){
+          top = rect.bottom + gap;
+          isBelow = true;
+          tooltip.classList.add('is-below');
+        }
+
+        left = Math.max(margin, Math.min(left, window.innerWidth - tipRect.width - margin));
+        const arrowX = rect.left + (rect.width / 2) - left;
+
+        tooltip.style.left = left + 'px';
+        tooltip.style.top = top + 'px';
+        tooltip.style.setProperty('--arrow-x', Math.max(14, Math.min(arrowX, tipRect.width - 14)) + 'px');
+      }
+
+      function showTooltip(th){
+        activeHeader = th;
+        th.classList.add('is-tooltip-active');
+        positionTooltip(th);
+      }
+
+      function hideTooltip(th){
+        if(th) th.classList.remove('is-tooltip-active');
+        activeHeader = null;
+        tooltip.classList.remove('is-visible', 'is-below');
+      }
+
+      headers.forEach(th => {
+        th.addEventListener('mouseenter', () => showTooltip(th));
+        th.addEventListener('mouseleave', () => hideTooltip(th));
+        th.addEventListener('focus', () => showTooltip(th));
+        th.addEventListener('blur', () => hideTooltip(th));
+      });
+
+      window.addEventListener('scroll', () => {
+        if(activeHeader) positionTooltip(activeHeader);
+      }, { passive:true });
+
+      window.addEventListener('resize', () => {
+        if(activeHeader) positionTooltip(activeHeader);
+      });
+
+      document.querySelectorAll('.an-table-scroll').forEach(scroller => {
+        scroller.addEventListener('scroll', () => {
+          if(activeHeader) positionTooltip(activeHeader);
+        }, { passive:true });
       });
     }
 
@@ -3270,6 +4679,7 @@
     setupTabs();
     setupSearch();
     setupSort();
+    setupHeaderTooltips();
     setupScrollTriggeredBars();
     injectFlags();
     injectIcons();
