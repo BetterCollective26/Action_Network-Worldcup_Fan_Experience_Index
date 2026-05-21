@@ -1,7 +1,6 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3504,6 +3503,23 @@
       }
     }
 
+
+
+    /* FINAL SCORE CARD + PRECISE SECTION JUMPS
+       Keeps the sixth methodology card compact and removes the extra jump buffer
+       so menu clicks land directly on each section divider. */
+    .an-final-score-card .an-method-points{
+      gap:6px !important;
+    }
+
+    .an-final-score-card .an-method-points li{
+      padding:7px 9px 7px 12px !important;
+      line-height:1.3 !important;
+    }
+
+    .an-jump-target{
+      scroll-margin-top:0 !important;
+    }
 </style>
 </head>
 <body>
@@ -4380,14 +4396,13 @@
             <li><strong>Stadium-area measure:</strong> focuses on the matchday base, not the wider city.</li>
           </ul>
         </div>
-        <div class="an-method-card">
+        <div class="an-method-card an-final-score-card">
           <div class="an-method-icon" data-icon="calculator" aria-hidden="true"></div>
           <strong>Final Index Score</strong><span>0–100</span>
-          <p>Combines the weighted category scores into one overall fan experience rating.</p>
+          <p>Combines the weighted categories into one overall fan experience score.</p>
           <ul class="an-method-points">
-            <li><strong>Normalize:</strong> each raw metric is converted to a 0–10 score.</li>
-            <li><strong>Invert:</strong> lower-is-better metrics are flipped so better values score higher.</li>
-            <li><strong>Weight & sum:</strong> categories are combined using the listed weights and scaled to 100.</li>
+            <li><strong>Normalize & invert:</strong> metrics are scored 0–10, with lower-is-better data flipped.</li>
+            <li><strong>Weight & scale:</strong> category scores are combined and converted to a 0–100 index.</li>
           </ul>
         </div>
       </div>
